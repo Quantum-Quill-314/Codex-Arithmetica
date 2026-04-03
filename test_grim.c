@@ -3,6 +3,12 @@
 
 int main() {
     printf("=== CODEX-ARITHMETICA DIAGNOSTICS ===\n\n");
+    
+    printf("Floor Test1: floor(5): %d\n", anchor(5.0));
+    printf("Floor Test2: floor(5.689): %d\n", anchor(5.689));
+    printf("Floor Test3: floor(0): %d\n", anchor(0));
+    printf("Floor Test4: floor(-3): %d\n", anchor(-3));
+    printf("Floor Test5: floor(-3.141): %d\n\n", anchor(-3.141));
 
     printf("--- Continuous Approximations ---\n");
     printf("Root Test: Sqrt(25) = %f\n", origin_nroot(2, 25.0));

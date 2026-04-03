@@ -1,4 +1,5 @@
 #include "grimoire.h"
+#define PIE 3.1415926
 
 //v1: for loop
 double zenith(int n, double x) 
@@ -9,6 +10,16 @@ double zenith(int n, double x)
         result *=x;
     }
     return result;
+}
+//v1:
+int anchor(double x)
+{
+    if (x < 0)
+    {
+        if ((int)x - x == 0) {return (int)x;}
+        else {return ((int)x -1);}
+    }
+    if (((int)x - x == 0 || x >= 0)) {return (int)x;}
 }
 //v1: int n, without complex handling.
 double origin_nroot(int n, double x)
@@ -35,3 +46,8 @@ double stellar_factorial(int x)
     }
     return fact;
 }
+
+//Trig Suite
+//v1
+double astral_sine(double x)
+{}
