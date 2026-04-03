@@ -48,6 +48,78 @@ double stellar_factorial(int x)
 }
 
 //Trig Suite
-//v1
-double astral_sine(double x)
-{}
+//v1: without floating-point rounding handling and only radians
+double astral_sin(double x)
+{
+    if (x > (2*PIE)) //reducing to [0,2π]
+    {
+        int q = anchor(x/(2*PIE));
+        x = x - q*2*PIE;
+    } 
+    int multiplier = 1;
+    //mapping to [0, π/2]
+    if ((x >= (PIE/2)) && (x <= PIE))
+    {
+        x = PIE - x;
+        multiplier = 1;
+    }
+    else if ((x >= PIE) && (x <= ((3*PIE)/2)))
+    {
+        x = x - PIE;
+        multiplier = -1;
+    }
+    else if ((x >= ((3*PIE)/2)) && (x <= (2*PIE)))
+    {
+        x = (2*PIE - x);
+        multiplier = -1;
+    }
+
+    //handling x between [π/4, π/2]
+    if ((x >= (PIE/4)) && (x <= (PIE/2)))
+    {return multiplier * astral_cos((PIE/2)-x);}
+    
+    double sinx = (x - zenith(3,x)/6), term = -zenith(3,x)/6;
+    for (int i = 2; i < 15; i++)
+    {
+        term = term * (-zenith(2,x)/((2*i)*(2*i+1)));
+        sinx = sinx + term;
+    }
+    return sinx*multiplier;
+}
+//v1: without floating-point rounding handling and only radians
+double astral_cos(double x)
+{
+    if (x > (2*PIE)) //reducing to [0,2π]
+    {
+        int q = anchor(x/(2*PIE));
+        x = x - q*2*PIE;
+    } 
+    int multiplier = 1;
+    //mapping to [0, π/2]
+    if ((x >= (PIE/2)) && (x <= PIE))
+    {
+        x = PIE - x;
+        multiplier = -1;
+    }
+    else if ((x >= PIE) && (x <= ((3*PIE)/2)))
+    {
+        x = x - PIE;
+        multiplier = -1;
+    }
+    else if ((x >= ((3*PIE)/2)) && (x < (2*PIE)))
+    {
+        x = (2*PIE - x);
+        multiplier = 1;
+    }
+    //handling x between [π/4, π/2]
+    if ((x >= (PIE/4)) && (x <= (PIE/2)))
+    {return multiplier * astral_sin((PIE/2)-x);}
+
+    double cosx = 1 - (zenith(2,x)/2), term = -zenith(2,x)/2;
+    for (int i = 2; i < 15; i++)
+    {
+        term = term * (-zenith(2,x)/((2*i)*(2*i-1)));
+        cosx = cosx+term;
+    }
+    return cosx*multiplier;
+}

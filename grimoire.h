@@ -6,3 +6,7 @@ double zenith(int n, double x); //v1: for loop
 double stellar_factorial(int x); //v1: only positive integers
 int anchor(double x); //v1:
 
+//Trig Suite
+double astral_sin(double x);
+double astral_cos(double x);
+
