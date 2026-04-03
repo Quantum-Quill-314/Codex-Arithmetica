@@ -45,6 +45,9 @@
 ## 🔮 Syntax of the Spells (Usage Examples)
 *(To be written once the first modules are tested...)*
 
+## ⚙️ Logs of Broken Quests (Error logs)
+1). Returned 1 = Max number of iterations reached, but precision was not gained. Iterator error.
+
 ---
-**Architect:** [Your Name / Mystical Poet]  
+**Architect:** [Mystical Poet]  
 **Status:** In Active Development

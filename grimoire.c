@@ -10,8 +10,8 @@ double zenith(int n, double x)
     }
     return result;
 }
-//v1: int n
-double root(int n, double x)
+//v1: int n, without complex handling.
+double origin_nroot(int n, double x)
 {
     double x_g = x/n;
     for(int i = 0; ((x-zenith(n,x_g)) > PRECISION || (x-zenith(n,x_g)) < -PRECISION); i++)
@@ -22,3 +22,4 @@ double root(int n, double x)
     }
     return x_g;
 }
+//v1: 
