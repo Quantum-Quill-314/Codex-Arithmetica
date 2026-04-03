@@ -46,8 +46,8 @@
 *(To be written once the first modules are tested...)*
 
 ## ⚙️ Logs of Broken Quests (Error logs)
-1). Returned 1 = Max number of iterations reached, but precision was not gained. Iterator error.
-
+1). Returned 701 = Max number of iterations reached, but precision was not gained. Iterator error.
+2). Returned 702 = Domain Error. The input was not within the domain of the function.
 ---
 **Architect:** [Mystical Poet]  
 **Status:** In Active Development
