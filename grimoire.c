@@ -123,3 +123,34 @@ double astral_cos(double x)
     }
     return cosx*multiplier;
 }
+//v1
+double astral_tan(double x)
+{
+    if ((astral_cos(x) <= PRECISION) && (astral_cos(x) > -PRECISION))
+    {return 703;}
+    double tanx = astral_sin(x)/astral_cos(x);
+    return tanx;
+}
+//v1
+double astral_cot(double x)
+{
+    if ((astral_sin(x) <= PRECISION) && (astral_sin(x) > -PRECISION))
+    {return 703;}
+    double cotx = astral_cos(x)/astral_sin(x);
+    return cotx;
+}
+//v1
+double astral_sec(double x)
+{
+    if ((astral_cos(x) <= PRECISION) && (astral_cos(x) > -PRECISION))
+    {return 703;}
+    double secx = 1/astral_cos(x);
+    return secx;
+}
+double astral_cosec(double x)
+{
+    if ((astral_sin(x) <= PRECISION) && (astral_sin(x) > -PRECISION))
+    {return 703;}
+    double cosecx = 1/astral_sin(x);
+    return cosecx;
+}

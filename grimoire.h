@@ -9,4 +9,8 @@ int anchor(double x); //v1:
 //Trig Suite
 double astral_sin(double x);
 double astral_cos(double x);
+double astral_tan(double x);
+double astral_cot(double x);
+double astral_sec(double x);
+double astral_cosec(double x);
 
