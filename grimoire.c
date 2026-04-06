@@ -48,10 +48,10 @@ double stellar_factorial(int x)
 }
 
 //Trig Suite
-//v1: without floating-point rounding handling and only radians
+//v2: With Horner's Polynomial and only radian
 double astral_sin(double x)
 {
-    if (x > (2*PIE)) //reducing to [0,2π]
+    if (x > (2*PIE) || x < 0) //reducing to [0,2π]
     {
         int q = anchor(x/(2*PIE));
         x = x - q*2*PIE;
@@ -78,18 +78,17 @@ double astral_sin(double x)
     if ((x >= (PIE/4)) && (x <= (PIE/2)))
     {return multiplier * astral_cos((PIE/2)-x);}
     
-    double sinx = (x - zenith(3,x)/6), term = -zenith(3,x)/6;
-    for (int i = 2; i < 15; i++)
+    double sinx = 1;
+    for (int i = 10; i > 0; i--)
     {
-        term = term * (-zenith(2,x)/((2*i)*(2*i+1)));
-        sinx = sinx + term;
+        sinx = 1 - ((x*x)/(2*i*(2*i+1)))*sinx;
     }
-    return sinx*multiplier;
+    return x*sinx*multiplier;
 }
-//v1: without floating-point rounding handling and only radians
+//v2: With Horner's Polynomial and only radian
 double astral_cos(double x)
 {
-    if (x > (2*PIE)) //reducing to [0,2π]
+    if (x > (2*PIE) || x < 0) //reducing to [0,2π]
     {
         int q = anchor(x/(2*PIE));
         x = x - q*2*PIE;
@@ -115,13 +114,12 @@ double astral_cos(double x)
     if ((x >= (PIE/4)) && (x <= (PIE/2)))
     {return multiplier * astral_sin((PIE/2)-x);}
 
-    double cosx = 1 - (zenith(2,x)/2), term = -zenith(2,x)/2;
-    for (int i = 2; i < 15; i++)
+    double cosx = 1;
+    for (int i = 10; i > 0; i--)
     {
-        term = term * (-zenith(2,x)/((2*i)*(2*i-1)));
-        cosx = cosx+term;
+        cosx = 1 - ((x*x)/(2*i*(2*i-1)))*cosx;
     }
-    return cosx*multiplier;
+    return multiplier*cosx;
 }
 //v1
 double astral_tan(double x)

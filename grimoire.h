@@ -1,4 +1,4 @@
-#define PRECISION 1.0e-6
+#define PRECISION 1.0e-8
 #define ITERATIONS 1.0e5
 
 double origin_nroot(int n, double x); //V1: int n
@@ -14,3 +14,4 @@ double astral_cot(double x);
 double astral_sec(double x);
 double astral_cosec(double x);
 
+//Inverse Trig Suite (principal angles)
