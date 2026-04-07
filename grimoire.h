@@ -15,3 +15,4 @@ double astral_sec(double x);
 double astral_cosec(double x);
 
 //Inverse Trig Suite (principal angles)
+double arch_tan(double x);

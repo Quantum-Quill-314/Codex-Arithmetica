@@ -152,3 +152,21 @@ double astral_cosec(double x)
     double cosecx = 1/astral_sin(x);
     return cosecx;
 }
+//v1:
+double arch_tan(double x)
+{
+    double atan;
+    if (x == 0) {return 0;}
+    if (x < 0.5 && x > -0.5) {atan = 0;}
+    else {atan = (x > 0) ? (PIE/2 - 0.1) : -(PIE/2 - 0.1);}
+    double tan_val;
+    int i = 0;
+    do
+    {
+        i++;
+        tan_val = astral_tan(atan);
+        if (i > ITERATIONS) {return 701;}
+        atan = atan - ((tan_val-x)/(1 + (tan_val*tan_val)));
+    } while ((tan_val - x) > PRECISION || (x-tan_val) > PRECISION);
+    return atan;
+}
