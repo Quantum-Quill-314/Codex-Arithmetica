@@ -1,5 +1,7 @@
 #define PRECISION 1.0e-8
 #define ITERATIONS 1.0e5
+#define PIE 3.14159265358979323846
+
 
 double origin_nroot(int n, double x); //V1: int n
 double zenith(int n, double x); //v1: for loop
@@ -16,3 +18,6 @@ double astral_cosec(double x);
 
 //Inverse Trig Suite (principal angles)
 double arch_tan(double x);
+
+//constants forge
+double pie();

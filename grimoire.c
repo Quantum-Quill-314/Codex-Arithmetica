@@ -1,5 +1,4 @@
 #include "grimoire.h"
-#define PIE 3.1415926
 
 //v1: for loop
 double zenith(int n, double x) 
@@ -169,4 +168,11 @@ double arch_tan(double x)
         atan = atan - ((tan_val-x)/(1 + (tan_val*tan_val)));
     } while ((tan_val - x) > PRECISION || (x-tan_val) > PRECISION);
     return atan;
+}
+
+//v1: Machin's Formula
+double pie()
+{
+    double pie = 4*(4*arch_tan(1.0/5) - arch_tan(1.0/239));
+    return pie;
 }

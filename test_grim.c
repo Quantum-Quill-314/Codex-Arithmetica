@@ -40,6 +40,9 @@ int main() {
     printf("Sec-Csc test4, π: sec(3.14159) = %f || cosec(3.14159) = %f\n", astral_sec(3.14159), astral_cosec(3.14159));
     printf("Sec-Csc test5, 7.85398: sec(7.85398) = %f || cosec(7.85398) = %f\n\n", astral_sec(7.85398), astral_cosec(7.85398));
 
+    printf("\n--- Constants Forge ---\n");
+    printf("Pie by Machin's formula: %.15f\n", pie());
+    printf("Original Pie: 3.1415926535897932\n");
 
     printf("\n=====================================\n");
     return 0;
