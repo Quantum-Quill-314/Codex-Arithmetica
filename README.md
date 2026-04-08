@@ -50,5 +50,5 @@
 2). Returned 702 = Domain Error. The input was not within the domain of the function.
 3). Returned 703 = Divide by Zero error.
 ---
-**Architect:** [Mystical Poet]  
+**Architect:** [Quill Master]  
 **Status:** In Active Development

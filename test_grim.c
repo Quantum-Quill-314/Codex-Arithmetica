@@ -40,8 +40,57 @@ int main() {
     printf("Sec-Csc test4, π: sec(3.14159) = %f || cosec(3.14159) = %f\n", astral_sec(3.14159), astral_cosec(3.14159));
     printf("Sec-Csc test5, 7.85398: sec(7.85398) = %f || cosec(7.85398) = %f\n\n", astral_sec(7.85398), astral_cosec(7.85398));
 
+    printf("\n--- The Inverse Sine & Cosine Suite ---\n");
+    // Domain: [-1, 1]. Range: [-π/2, π/2] for arcsin, [0, π] for arccos
+    printf("ArcSin-ArcCos test1, 0: arcsin(0) = %f || arccos(0) = %f\n", arch_sin(0), arch_cos(0));
+    printf("ArcSin-ArcCos test2, 1 (Upper Bound): arcsin(1) = %f || arccos(1) = %f\n", arch_sin(1), arch_cos(1));
+    printf("ArcSin-ArcCos test3, -1 (Lower Bound): arcsin(-1) = %f || arccos(-1) = %f\n", arch_sin(-1), arch_cos(-1));
+    printf("ArcSin-ArcCos test4, 0.5 (pi/6 & pi/3): arcsin(0.5) = %f || arccos(0.5) = %f\n", arch_sin(0.5), arch_cos(0.5));
+    printf("ArcSin-ArcCos test5, -0.866025 (-sqrt(3)/2): arcsin(-0.866025) = %f || arccos(-0.866025) = %f\n", arch_sin(-0.866025), arch_cos(-0.866025));
+
+    printf("\n--- The Inverse Tangent & Cotangent Suite ---\n");
+    // Domain: All real numbers. 
+    printf("ArcTan-ArcCot test1, 0: arctan(0) = %f || arccot(0) = %f\n", arch_tan(0), arch_cot(0));
+    printf("ArcTan-ArcCot test2, 1 (pi/4): arctan(1) = %f || arccot(1) = %f\n", arch_tan(1), arch_cot(1));
+    printf("ArcTan-ArcCot test3, -1 (-pi/4 & 3pi/4): arctan(-1) = %f || arccot(-1) = %f\n", arch_tan(-1), arch_cot(-1));
+    printf("ArcTan-ArcCot test4, 1.73205 (sqrt(3)): arctan(1.73205) = %f || arccot(1.73205) = %f\n", arch_tan(1.73205), arch_cot(1.73205));
+    printf("ArcTan-ArcCot test5, 1000.0 (Approaching Infinity): arctan(1000.0) = %f || arccot(1000.0) = %f\n", arch_tan(1000.0), arch_cot(1000.0));
+
+    printf("\n--- The Inverse Secant & Cosecant Suite ---\n");
+    // Domain: x <= -1 or x >= 1. 
+    printf("ArcSec-ArcCsc test1, 1 (Boundary): arcsec(1) = %f || arccsc(1) = %f\n", arch_sec(1), arch_cosec(1));
+    printf("ArcSec-ArcCsc test2, -1 (Boundary): arcsec(-1) = %f || arccsc(-1) = %f\n", arch_sec(-1), arch_cosec(-1));
+    printf("ArcSec-ArcCsc test3, 2 (pi/3 & pi/6): arcsec(2) = %f || arccsc(2) = %f\n", arch_sec(2), arch_cosec(2));
+    printf("ArcSec-ArcCsc test4, -2 (2pi/3 & -pi/6): arcsec(-2) = %f || arccsc(-2) = %f\n", arch_sec(-2), arch_cosec(-2));
+    printf("ArcSec-ArcCsc test5, 1.1547 (2/sqrt(3)): arcsec(1.1547) = %f || arccsc(1.1547) = %f\n\n", arch_sec(1.1547), arch_cosec(1.1547));
+    printf("\n=== THE CHAOS PROTOCOL (STRESS TESTS) ===\n\n");
+
+    // 1-4: The Domain Violations (Blatant Disregard for the Rules)
+    // arcsin and arccos expect [-1, 1]. arcsec and arccsc expect |x| >= 1.
+    printf("Chaos Test 1 (ArcSin Overload): arcsin(2.5) = %f\n", arch_sin(2.5));
+    printf("Chaos Test 2 (ArcCos Underload): arccos(-10.0) = %f\n", arch_cos(-10.0));
+    printf("Chaos Test 3 (ArcSec Deadzone): arcsec(0.5) = %f\n", arch_sec(0.5));
+    printf("Chaos Test 4 (ArcCsc Singularity): arccsc(0.0) = %f\n", arch_cosec(0.0));
+
+    // 5-8: The Edge Skimmers (Just barely crossing the boundaries)
+    // These test if your engine tries to compute before checking the domain, 
+    // or if floating-point inaccuracies push a valid number into invalid territory.
+    printf("Chaos Test 5 (ArcCos Edge Skim): arccos(1.0000001) = %f\n", arch_cos(1.0000001));
+    printf("Chaos Test 6 (ArcSin Edge Skim): arcsin(-1.0000001) = %f\n", arch_sin(-1.0000001));
+    printf("Chaos Test 7 (ArcSec Edge Skim): arcsec(0.9999999) = %f\n", arch_sec(0.9999999));
+    printf("Chaos Test 8 (ArcCsc Edge Skim): arccsc(-0.9999999) = %f\n", arch_cosec(-0.9999999));
+
+    // 9-12: The Extremes (Microscopics and Leviathans)
+    // Testing how the Taylor series and Newton-Raphson handle extreme float scaling.
+    printf("Chaos Test 9 (ArcTan Leviathan): arctan(1.0e15) = %f\n", arch_tan(1.0e15));
+    printf("Chaos Test 10 (ArcCot Negative Leviathan): arccot(-1.0e15) = %f\n", arch_cot(-1.0e15));
+    printf("Chaos Test 11 (ArcSin Microscopic): arcsin(1.0e-15) = %f\n", arch_sin(1.0e-15));
+    printf("Chaos Test 12 (ArcTan Microscopic): arctan(-1.0e-15) = %f\n", arch_tan(-1.0e-15));
+
+    printf("\n=====================================\n");
+
     printf("\n--- Constants Forge ---\n");
-    printf("Pie by Machin's formula: %.15f\n", pie());
+    printf("Pie by Machin's formula: %.15f\n", sacred_pie());
     printf("Original Pie: 3.1415926535897932\n");
 
     printf("\n=====================================\n");

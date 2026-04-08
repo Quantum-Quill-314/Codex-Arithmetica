@@ -18,6 +18,12 @@ double astral_cosec(double x);
 
 //Inverse Trig Suite (principal angles)
 double arch_tan(double x);
+double arch_cot(double x);
+double arch_sin(double x);
+double arch_cos(double x);
+double arch_sec(double x);
+double arch_cosec(double x);
+
 
 //constants forge
-double pie();
+double sacred_pie();

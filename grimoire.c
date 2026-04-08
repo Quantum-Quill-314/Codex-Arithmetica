@@ -151,6 +151,7 @@ double astral_cosec(double x)
     double cosecx = 1/astral_sin(x);
     return cosecx;
 }
+//Inverse Trig Suite
 //v1:
 double arch_tan(double x)
 {
@@ -169,9 +170,42 @@ double arch_tan(double x)
     } while ((tan_val - x) > PRECISION || (x-tan_val) > PRECISION);
     return atan;
 }
+//v1
+double arch_cot(double x)
+{
+    if (x == 0) {return PIE/2;}
+    return (PIE/2 - arch_tan(x));
+}
+//v1
+double arch_sin(double x)
+{
+    if (x > 1 || x < -1) {return 702;}
+    if (x == 1) {return PIE/2;}
+    if (x == -1) {return PIE/2;}
+    double y = x/(origin_nroot(2,(1 - x*x)));
+    return arch_tan(y);
+}
+//v1
+double arch_cos(double x)
+{
+    if (x > 1 || x < -1) {return 702;}
+    return ((PIE/2)-arch_sin(x));
+}
+//v1
+double arch_sec(double x)
+{
+    if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {return 702;}
+    return (arch_cos(1/x));
+}
+//v1
+double arch_cosec(double x)
+{
+    if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {return 702;}
+    return ((PIE/2)-arch_sec(x));
+}
 
 //v1: Machin's Formula
-double pie()
+double sacred_pie()
 {
     double pie = 4*(4*arch_tan(1.0/5) - arch_tan(1.0/239));
     return pie;
