@@ -84,5 +84,5 @@ Rather than utilizing standard system `NaN` or crashing the stack, the Grimoire 
 * **`703.000000` (Division by Zero):** The continuous approximation attempted to divide by a microscopic float that the engine resolved to zero. Commonly intercepted at the vertical asymptotes of Tangent, Secant, and Cosecant waves.
 
 ---
-**Architect:** Quill Master  
+**Architect:** Quantum Quill  
 **Status:** In Active Development
