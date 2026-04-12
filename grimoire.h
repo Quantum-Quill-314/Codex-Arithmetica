@@ -8,9 +8,7 @@ double fractional_e(int k);
 #define PIE 3.14159265358979323846
 #define EULER (2 + (1.0/fractional_e(1)))
 
-
 double origin_nroot(int n, double x); //V1: int n
-double zenith(int n, double x); //v1: for loop
 double stellar_factorial(int x); //v1: only positive integers
 int anchor(double x); //v1:
 
@@ -29,3 +27,7 @@ double arch_sin(double x);
 double arch_cos(double x);
 double arch_sec(double x);
 double arch_cosec(double x);
+
+//powers suite
+double zenith(int n, double x); //v1: for loop
+double eon_growth(double x);

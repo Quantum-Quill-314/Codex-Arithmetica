@@ -1,15 +1,6 @@
 #include "grimoire.h"
 
-//v1: for loop
-double zenith(int n, double x) 
-{
-    double result = 1;
-    for (int i = 0; i < n; i++)
-    {
-        result *=x;
-    }
-    return result;
-}
+
 //v1:
 int anchor(double x)
 {
@@ -221,4 +212,35 @@ double fractional_e(int k)
     {
         return (ak + (1.0/fractional_e(k+1)));
     }
+}
+
+// powers suite
+//v1: for loop
+double zenith(int n, double x) 
+{
+    double result = 1;
+    for (int i = 0; i < n; i++)
+    {
+        result *=x;
+    }
+    return result;
+}
+//v1:
+double eon_growth(double x)
+{
+    if (x == 0) {return 1;}
+    int N = anchor(x);
+    double m = x - N;
+    double eN;
+    if (N<0)
+    {
+        eN = 1.0/ zenith(-N,EULER);
+    }
+    else {eN = zenith(N,EULER);}
+    double em = 1;
+    for (int i = 15; i > 0; i--)
+    {
+        em = 1 + (m/i)*em;
+    }
+    return (eN*em);
 }

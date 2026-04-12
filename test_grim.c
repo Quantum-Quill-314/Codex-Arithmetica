@@ -86,8 +86,14 @@ int main() {
     printf("Chaos Test 10 (ArcCot Negative Leviathan): arccot(-1.0e15) = %f\n", arch_cot(-1.0e15));
     printf("Chaos Test 11 (ArcSin Microscopic): arcsin(1.0e-15) = %f\n", arch_sin(1.0e-15));
     printf("Chaos Test 12 (ArcTan Microscopic): arctan(-1.0e-15) = %f\n", arch_tan(-1.0e-15));
-
     printf("\n=====================================\n");
+
+    printf("\n--- Powers Test ---\n");
+    printf("Exp Test1 (0): e^0 = %.5f\n", eon_growth(0));
+    printf("Exp Test2 (1): e^1 = %.5f\n", eon_growth(1));
+    printf("Exp Test3 (-1): e^-1 = %.5f\n", eon_growth(-1));
+    printf("Exp Test4 (2.5): e^2.5 = %.5f\n", eon_growth(2.5));
+    printf("Exp Test5 (-3.14): e^-3.14 = %.5f\n\n", eon_growth(-3.14));
 
     printf("\n--- Constants Forge ---\n");
     printf("Pie by Machin's formula: %.15f\n", sacred_pie());
