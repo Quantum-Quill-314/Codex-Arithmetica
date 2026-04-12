@@ -1,6 +1,12 @@
 #define PRECISION 1.0e-8
 #define ITERATIONS 1.0e5
+
+//constants forge
+double sacred_pie();
+double fractional_e(int k);
+
 #define PIE 3.14159265358979323846
+#define EULER (2 + (1.0/fractional_e(1)))
 
 
 double origin_nroot(int n, double x); //V1: int n
@@ -23,7 +29,3 @@ double arch_sin(double x);
 double arch_cos(double x);
 double arch_sec(double x);
 double arch_cosec(double x);
-
-
-//constants forge
-double sacred_pie();

@@ -210,3 +210,15 @@ double sacred_pie()
     double pie = 4*(4*arch_tan(1.0/5) - arch_tan(1.0/239));
     return pie;
 }
+//v1: continued fraction
+double fractional_e(int k)
+{
+    int max = 30;
+    int ak = 1;
+    if ((k % 3) == 2) {ak = 2*(k+1)/3;}
+    if (k == max) {return ak;}
+    else
+    {
+        return (ak + (1.0/fractional_e(k+1)));
+    }
+}

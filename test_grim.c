@@ -92,6 +92,8 @@ int main() {
     printf("\n--- Constants Forge ---\n");
     printf("Pie by Machin's formula: %.15f\n", sacred_pie());
     printf("Original Pie: 3.1415926535897932\n");
+    printf("e by me: %.20f\n", EULER);
+    printf("Original e: 2.71828182845904523536\n");
 
     printf("\n=====================================\n");
     return 0;
