@@ -65,7 +65,7 @@ double astral_sin(double x)
     }
 
     //handling x between [π/4, π/2]
-    if ((x >= (PIE/4)) && (x <= (PIE/2)))
+    if ((x > (PIE/4)) && (x <= (PIE/2)))
     {return multiplier * astral_cos((PIE/2)-x);}
     
     double sinx = 1;
@@ -101,7 +101,7 @@ double astral_cos(double x)
         multiplier = 1;
     }
     //handling x between [π/4, π/2]
-    if ((x >= (PIE/4)) && (x <= (PIE/2)))
+    if ((x > (PIE/4)) && (x <= (PIE/2)))
     {return multiplier * astral_sin((PIE/2)-x);}
 
     double cosx = 1;
@@ -243,4 +243,40 @@ double eon_growth(double x)
         em = 1 + (m/i)*em;
     }
     return (eN*em);
+}
+double eon_log(double x)
+{
+    if (x <= 0) {return 702;}
+    if (x == 1) {return 0;}
+    //input reduction
+    int count = 0;
+    double xr = x;
+    if (x < 1)
+    {
+        for (int i = 0; xr < 1; i++)
+        {
+            if (i == 15) {break;}
+            xr = EULER*xr;
+            count++;
+        }
+    }
+    if (x > EULER)
+    {
+        for (int i = 0; xr > EULER; i++)
+        {
+            if (i == 15) {break;}
+            xr = origin_nroot(2,xr);
+            count++;
+        }
+    }
+    double N = (xr-1)/(EULER - 1);
+    double exp_val = eon_growth(N);
+    for (int i = 0; (exp_val - xr) > PRECISION || (exp_val - xr) < -PRECISION; i++)
+    {
+        if (i == ITERATIONS) {return 701;}
+        N = N - (2*(exp_val - xr))/(exp_val + xr);
+        exp_val = eon_growth(N);
+    }
+    if (x > 1) {return (zenith(count,2) * N);}
+    else {return (N - count);}
 }

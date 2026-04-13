@@ -1,4 +1,4 @@
-#define PRECISION 1.0e-8
+#define PRECISION 1.0e-10
 #define ITERATIONS 1.0e5
 
 //constants forge
@@ -28,6 +28,7 @@ double arch_cos(double x);
 double arch_sec(double x);
 double arch_cosec(double x);
 
-//powers suite
+//Exponential suite
 double zenith(int n, double x); //v1: for loop
 double eon_growth(double x);
+double eon_log(double x);
