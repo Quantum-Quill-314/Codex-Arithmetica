@@ -32,3 +32,5 @@ double arch_cosec(double x);
 double zenith(int n, double x); //v1: for loop
 double eon_growth(double x);
 double eon_log(double x);
+double log_base(double x, double b);
+double base_growth(double x, double b);

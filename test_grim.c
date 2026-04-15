@@ -99,7 +99,18 @@ int main() {
     printf("Ln test2: (2.71828): ln(2.71828) = %.5f\n", eon_log(2.71828));
     printf("Ln test3: (0.0001): ln(0.0001) = %.5f\n", eon_log(0.0001));
     printf("Ln test4: (10^6): ln(10^6) = %.5f\n", eon_log(1.0e6));
-    printf("Ln test5: (-13): ln(-13) = %.5f\n", eon_log(-13));
+    printf("Ln test5: (-13): ln(-13) = %.5f\n\n", eon_log(-13));
+
+    printf("a^b test1: (2^3) = %.5f\n", base_growth(3,2));
+    printf("a^b test2: (4^0.5) = %.5f\n", base_growth(0.5, 4));
+    printf("a^b test3: (-2^-3) = %.5f\n", base_growth(-3,-2));
+    printf("a^b test4: (0^0) = %.5f\n", base_growth(0,0));
+    printf("a^b test5: (0^5) = %.5f\n", base_growth(5,0));
+    printf("a^b test6: (0^-3) = %.5f\n", base_growth(-3,0));
+    printf("a^b test7: (-5^0) = %.5f\n", base_growth(0,-5));
+    printf("a^b test8: (1^500) = %.5f\n", base_growth(500,1));
+    printf("a^b test9: (-4^0.5) = %.5f\n", base_growth(0.5,-4));
+    printf("a^b test10: (4^-0.5) = %.5f\n", base_growth(-0.5,4));
 
     printf("\n--- Constants Forge ---\n");
     printf("Pie by Machin's formula: %.15f\n", sacred_pie());

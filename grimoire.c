@@ -280,3 +280,23 @@ double eon_log(double x)
     if (x > 1) {return (zenith(count,2) * N);}
     else {return (N - count);}
 }
+double log_base(double x, double b)
+{
+    if ((b - 1) < PRECISION && (b - 1) > -PRECISION) {return 702;}
+    if (b <= 0) {return 702;}
+    if (x <= 0) {return 702;}
+    return (eon_log(x)/eon_log(b));
+}
+double base_growth(double x, double b)
+{
+    if ((x == 0) && (b == 0)) {return 702;}
+    if (x == 0) {return 1;}
+    if ((b == 0 && x != 0 && x > 0)) {return 0;}
+    if ((b == 0 && x != 0 && x < 0)) {return 703;}
+    if ((anchor(x) - x == 0) && x > 0) {return zenith(x,b);}
+    if (x < 0) {return (1.0/base_growth(-x,b));}
+    double p = eon_log(b);
+    if (p == 702) {return 702;}
+    if (p == 701) {return 701;}
+    return (eon_growth(x*p));
+}
