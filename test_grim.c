@@ -117,6 +117,8 @@ int main() {
     printf("Original Pie: 3.1415926535897932\n");
     printf("e by me: %.20f\n", EULER);
     printf("Original e: 2.71828182845904523536\n");
+    printf("Gamma (Euler's constant) by me (100 runs): %.10f\n", GAMMA);
+    printf("Original Gamma: 0.5772156649");
 
     printf("\n=====================================\n");
     return 0;

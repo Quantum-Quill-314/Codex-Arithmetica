@@ -194,7 +194,7 @@ double arch_cosec(double x)
     if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {return 702;}
     return ((PIE/2)-arch_sec(x));
 }
-
+// The Constant's forge
 //v1: Machin's Formula
 double sacred_pie()
 {
@@ -213,7 +213,22 @@ double fractional_e(int k)
         return (ak + (1.0/fractional_e(k+1)));
     }
 }
-
+//v1:
+double eon_remnant(int l)
+{
+    double bernoulli_evens[] = {1.0/6.0, -1.0/30.0, 1.0/42.0, -1.0/30.0, 5.0/66.0};
+    double sum = 0;
+    for (int i = 1; i <= l; i++)
+    {
+        sum += 1.0/i;
+    }
+    double g = sum - eon_log(l) - 1.0/(2*l);
+    for (int i = 1; i <= sizeof(bernoulli_evens)/sizeof(bernoulli_evens[0]); i++)
+    {
+        g += bernoulli_evens[i-1]/(2*i*zenith(2*i, l));
+    }
+    return g;
+}
 // powers suite
 //v1: for loop
 double zenith(int n, double x) 

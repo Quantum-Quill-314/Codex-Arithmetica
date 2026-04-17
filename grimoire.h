@@ -4,9 +4,11 @@
 //constants forge
 double sacred_pie();
 double fractional_e(int k);
+double eon_remnant(int l);
 
 #define PIE 3.14159265358979323846
 #define EULER (2 + (1.0/fractional_e(1)))
+#define GAMMA eon_remnant(100)
 
 double origin_nroot(int n, double x); //V1: int n
 double stellar_factorial(int x); //v1: only positive integers
