@@ -15,10 +15,10 @@
 * **Inverse Trigonometry (`arch_tan`, `arch_sin`, etc.):** Anchored by a highly volatile Newton-Raphson loop for `arch_tan`. The rest of the suite is dynamically calculated via geometric right-triangle identities and complementary angle translations, fortified by strict domain limit guards.
 * **Logarithms & Exponentials (`eon_growth`, `eon_log`):** Evaluated via Taylor Series Expansions for $e^x$ and Halley’s Method (Cubic Convergence) for $\ln(x)$. Features base-shifting for arbitrary logarithms and exponential growths.
 
-### II. The Universal Constants Forge
-* **$\pi$ Engine (`sacred_pie`):** Evaluated using Machin’s Formula ($\frac{\pi}{4} = 4\arctan(\frac{1}{5}) - \arctan(\frac{1}{239})$). 
-* **Euler’s Number ($e$):** Evaluated using Euler's Continued Fraction (The Infinite Staircase) via deep recursive structures (`fractional_e`).
-* **Euler-Mascheroni Constant ($\gamma$):** Calculated via the limit of the Harmonic series scaled against the continuous logarithmic curve with Bernoulli error corrections (`eon_remnant`).
+## II. The Universal Constants Forge
+* **π Engine (`sacred_pie`):** Evaluated using Machin’s Formula (π/4 = 4*arctan(1/5) - arctan(1/239)). 
+* **Euler’s Number (e):** Evaluated using Euler's Continued Fraction (The Infinite Staircase) via deep recursive structures (`fractional_e`).
+* **Euler-Mascheroni Constant (γ):** Calculated via the limit of the Harmonic series scaled against the continuous logarithmic curve with Bernoulli error corrections (`eon_remnant`).
 
 ### III. Combinatoric & Algebraic Foundations
 * **The Factorial Engine (`stellar_factorial`):** Utilizes rapid iterative loops for exact positive integers up to $12!$.
@@ -44,13 +44,13 @@ To utilize the Codex, include the Grimoire header (`#include "grimoire.h"`) in y
   * **x:** A positive integer up to $12$. Returns exact discrete factorials.
 * `double abyssal_factorial(long int x);`
   * **x:** A massive positive integer.
-  * **Returns:** The natural logarithm of the factorial, $\ln(x!)$, operating entirely in log-space to prevent buffer overflows during massive permutations and combinations.
+  * **Returns:** The natural logarithm of the factorial, ln(x!), operating entirely in log-space to prevent buffer overflows during massive permutations and combinations.
 
 ### 3. Exponentials & Logarithms
-* `double eon_growth(double x);` ($e^x$)
-* `double eon_log(double x);` ($\ln(x)$)
-* `double log_base(double x, double b);` ($\log_b(x)$)
-* `double base_growth(double x, double b);` ($b^x$)
+* `double eon_growth(double x);` (e^x)
+* `double eon_log(double x);` (ln(x))
+* `double log_base(double x, double b);` (log_b(x))
+* `double base_growth(double x, double b);` (b^x)
 
 ### 4. Trigonometry & Inverse Trigonometry
 * `double astral_sin(double x);` | `double astral_cos(double x);` | `double astral_tan(double x);`
@@ -74,9 +74,8 @@ To check for computational paradoxes, users must verify the crystal after heavy 
 
 * **`0` (Absolute Peace):** The calculation was mathematically successful.
 * **`701` (Iterator Error):** The maximum algorithmic loops (`ITERATIONS`) were reached without achieving `PRECISION`. Often triggered by asymptotic limits.
-* **`702` (Domain Error):** The input violates geometric boundaries (e.g., attempting $\arcsin(2.5)$ or $\ln(-5)$).
-* **`703` (Division by Zero):** The continuous approximation attempted to divide by a microscopic float that the engine resolved to zero. Intercepted at vertical asymptotes like $\tan(\pi/2)$.
-
+* **`702` (Domain Error):** The input violates geometric boundaries (e.g., attempting arcsin(2.5) or ln(-5)).
+* **`703` (Division by Zero):** The continuous approximation attempted to divide by a microscopic float that the engine resolved to zero. Intercepted at vertical asymptotes like tan(π/2).
 ---
 **Architect:** [Quantum Quill]  
 **Status:** In Active Development
