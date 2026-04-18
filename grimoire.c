@@ -230,16 +230,19 @@ double eon_remnant(int l)
     return g;
 }
 // powers suite
-//v1: for loop
+//v2: exponentiation by squaring
 double zenith(int n, double x) 
 {
     double result = 1;
-    for (int i = 0; i < n; i++)
+    while (n > 0)
     {
-        result *=x;
+        if (n % 2 != 0) {result *= x;}
+        x *= x;
+        n /= 2;
     }
     return result;
 }
+
 //v1:
 double eon_growth(double x)
 {
