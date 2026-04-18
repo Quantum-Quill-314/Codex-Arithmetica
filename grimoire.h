@@ -1,8 +1,10 @@
-#define PRECISION 1.0e-15
-#define ITERATIONS 1.0e5
+#define PRECISION 1.0e-12
+#define ITERATIONS 1.0e6
 #define PIE 3.141592653589793
 #define EULER 2.718281828459045
 #define GAMMA 0.577215664901532
+
+extern int GRIMOIRE_ERROR;
 
 //constants forge
 double sacred_pie();

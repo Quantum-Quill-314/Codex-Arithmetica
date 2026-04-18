@@ -1,130 +1,167 @@
 #include <stdio.h>
 #include "grimoire.h"
 
+void assess_engine(const char* label, double result, int is_int) {
+    if (GRIMOIRE_ERROR != 0) {
+        // The engine failed! Print the dummy 0 and the exact error code.
+        if (is_int) {
+            printf("%s = 0", label);
+        } else {
+            printf("%s = 0.000000", label);
+        }
+        
+        if (GRIMOIRE_ERROR == 701) {
+            printf("  [ERROR: Max iterations reached, without precision]\n");
+        } else if (GRIMOIRE_ERROR == 702) {
+            printf("  [ERROR: Domain error]\n");
+        } else if (GRIMOIRE_ERROR == 703) {
+            printf("  [ERROR: Div by 0 error]\n");
+        } else {
+            printf("  [ERROR: Unknown Anomaly %d]\n", GRIMOIRE_ERROR);
+        }
+        
+        // Reset the crystal for the next test!
+        GRIMOIRE_ERROR = 0; 
+    } else {
+        // The engine succeeded! Print the pure math.
+        if (is_int) {
+            printf("%s = %d\n", label, (int)result);
+        } else {
+            printf("%s = %.10f\n", label, result);
+        }
+    }
+}
+
+// Macros to keep the test calls elegant and single-line
+#define TEST_FLT(label, expression) do { GRIMOIRE_ERROR = 0; double res = (expression); assess_engine(label, res, 0); } while(0)
+#define TEST_INT(label, expression) do { GRIMOIRE_ERROR = 0; double res = (double)(expression); assess_engine(label, res, 1); } while(0)
+
+
 int main() {
     printf("=== CODEX-ARITHMETICA DIAGNOSTICS ===\n\n");
     
-    printf("Floor Test1: floor(5): %d\n", anchor(5.0));
-    printf("Floor Test2: floor(5.689): %d\n", anchor(5.689));
-    printf("Floor Test3: floor(0): %d\n", anchor(0));
-    printf("Floor Test4: floor(-3): %d\n", anchor(-3));
-    printf("Floor Test5: floor(-3.141): %d\n\n", anchor(-3.141));
+    TEST_INT("Floor Test1: floor(5)", anchor(5.0));
+    TEST_INT("Floor Test2: floor(5.689)", anchor(5.689));
+    TEST_INT("Floor Test3: floor(0)", anchor(0));
+    TEST_INT("Floor Test4: floor(-3)", anchor(-3));
+    TEST_INT("Floor Test5: floor(-3.141)", anchor(-3.141));
 
-    printf("--- Continuous Approximations ---\n");
-    printf("Root Test: Sqrt(25) = %f\n\n", origin_nroot(2, 25.0));
+    printf("\n--- Continuous Approximations ---\n");
+    TEST_FLT("Root Test: Sqrt(25)", origin_nroot(2, 25.0));
 
     printf("\n--- Combinatoric Engine ---\n");
-    printf("Factorial Test1: 5! = %f\n", stellar_factorial(5));
-    printf("Factorial Test2: 0! and 1!: 0! = %f || 1! = %f\n\n", stellar_factorial(0), stellar_factorial(1));
+    TEST_FLT("Factorial Test1: 5!", stellar_factorial(5));
+    TEST_FLT("Factorial Test2: 0!", stellar_factorial(0));
+    TEST_FLT("Factorial Test3: 1!", stellar_factorial(1));
 
-    printf("Log Factorial Test1: ln(0!) = %f\n", abyssal_factorial(0));
-    printf("Log Factorial Test2: ln(-5!) (error) = %f\n", abyssal_factorial(-5));
-    printf("Log Factorial Test3: ln(12!) = %f\n", abyssal_factorial(12));
-    printf("Log Factorial Test4: ln(13!) = %f\n", abyssal_factorial(13));
-    printf("Log Factorial Test5: ln(100!) = %f\n", abyssal_factorial(100));
+    TEST_FLT("Log Factorial Test1: ln(0!)", abyssal_factorial(0));
+    TEST_FLT("Log Factorial Test2: ln(-5!)", abyssal_factorial(-5));
+    TEST_FLT("Log Factorial Test3: ln(12!)", abyssal_factorial(12));
+    TEST_FLT("Log Factorial Test4: ln(13!)", abyssal_factorial(13));
+    TEST_FLT("Log Factorial Test5: ln(100!)", abyssal_factorial(100));
 
     printf("\n--- Trigonometric Suite ---\n");
-    printf("Sin-Cos test1, 0: sin(0) = %f || cos(0) = %f\n", astral_sin(0),astral_cos(0));
-    printf("Sin-Cos test2, π/2: sin(1.57080) = %f || cos(1.57080) = %f\n", astral_sin(1.57080),astral_cos(1.57080));
-    printf("Sin-Cos test3, -π/3: sin(-1.04720) = %f || cos(-1.04720) = %f\n", astral_sin(-1.04720),astral_cos(-1.04720));
-    printf("Sin-Cos test4, π: sin(3.14159) = %f || cos(3.14159) = %f\n", astral_sin(3.14159),astral_cos(3.14159));
-    printf("Sin-Cos test5, 7.85398: sin(7.85398) = %f || cos(7.85398) = %f\n", astral_sin(7.85398),astral_cos(7.85398));
-    printf("Sin-Cos test6, 12.3325: sin(12.3325) = %f || cos(12.3325) = %f\n", astral_sin(12.3325),astral_cos(12.3325));
-    printf("Sin-Cos test7, -6.666: sin(-6.666) = %f || cos(-6.666) = %f\n\n", astral_sin(-6.666),astral_cos(-6.666));
+    TEST_FLT("Sin test1 (0)", astral_sin(0));
+    TEST_FLT("Cos test1 (0)", astral_cos(0));
+    TEST_FLT("Sin test2 (π/2)", astral_sin(1.57080));
+    TEST_FLT("Cos test2 (π/2)", astral_cos(1.57080));
+    TEST_FLT("Sin test3 (-π/3)", astral_sin(-1.04720));
+    TEST_FLT("Cos test3 (-π/3)", astral_cos(-1.04720));
+    TEST_FLT("Sin test4 (π)", astral_sin(3.14159));
+    TEST_FLT("Cos test4 (π)", astral_cos(3.14159));
+    TEST_FLT("Sin test5 (7.85398)", astral_sin(7.85398));
+    TEST_FLT("Cos test5 (7.85398)", astral_cos(7.85398));
+    TEST_FLT("Sin test6 (12.3325)", astral_sin(12.3325));
+    TEST_FLT("Cos test6 (12.3325)", astral_cos(12.3325));
+    TEST_FLT("Sin test7 (-6.666)", astral_sin(-6.666));
+    TEST_FLT("Cos test7 (-6.666)", astral_cos(-6.666));
 
     printf("\n--- The Tangent & Cotangent Suite ---\n");
-    printf("Tan-Cot test1, 0: tan(0) = %f || cot(0) = %f\n", astral_tan(0), astral_cot(0));
-    printf("Tan-Cot test2, π/2: tan(1.57080) = %f || cot(1.57080) = %f\n", astral_tan(1.57080), astral_cot(1.57080));
-    printf("Tan-Cot test3, -π/3: tan(-1.04720) = %f || cot(-1.04720) = %f\n", astral_tan(-1.04720), astral_cot(-1.04720));
-    printf("Tan-Cot test4, π: tan(3.14159) = %f || cot(3.14159) = %f\n", astral_tan(3.14159), astral_cot(3.14159));
-    printf("Tan-Cot test5, 7.85398: tan(7.85398) = %f || cot(7.85398) = %f\n", astral_tan(7.85398), astral_cot(7.85398));
+    TEST_FLT("Tan test1 (0)", astral_tan(0));
+    TEST_FLT("Cot test1 (0)", astral_cot(0));
+    TEST_FLT("Tan test2 (π/2)", astral_tan(1.57080));
+    TEST_FLT("Cot test2 (π/2)", astral_cot(1.57080));
+    TEST_FLT("Tan test3 (-π/3)", astral_tan(-1.04720));
+    TEST_FLT("Cot test3 (-π/3)", astral_cot(-1.04720));
+    TEST_FLT("Tan test4 (π)", astral_tan(3.14159));
+    TEST_FLT("Cot test4 (π)", astral_cot(3.14159));
 
     printf("\n--- The Secant & Cosecant Suite ---\n");
-    printf("Sec-Csc test1, 0: sec(0) = %f || cosec(0) = %f\n", astral_sec(0), astral_cosec(0));
-    printf("Sec-Csc test2, π/2: sec(1.57080) = %f || cosec(1.57080) = %f\n", astral_sec(1.57080), astral_cosec(1.57080));
-    printf("Sec-Csc test3, -π/3: sec(-1.04720) = %f || cosec(-1.04720) = %f\n", astral_sec(-1.04720), astral_cosec(-1.04720));
-    printf("Sec-Csc test4, π: sec(3.14159) = %f || cosec(3.14159) = %f\n", astral_sec(3.14159), astral_cosec(3.14159));
-    printf("Sec-Csc test5, 7.85398: sec(7.85398) = %f || cosec(7.85398) = %f\n\n", astral_sec(7.85398), astral_cosec(7.85398));
+    TEST_FLT("Sec test1 (0)", astral_sec(0));
+    TEST_FLT("Csc test1 (0)", astral_cosec(0));
+    TEST_FLT("Sec test2 (π/2)", astral_sec(1.57080));
+    TEST_FLT("Csc test2 (π/2)", astral_cosec(1.57080));
+    TEST_FLT("Sec test3 (-π/3)", astral_sec(-1.04720));
+    TEST_FLT("Csc test3 (-π/3)", astral_cosec(-1.04720));
+    TEST_FLT("Sec test4 (π)", astral_sec(3.14159));
+    TEST_FLT("Csc test4 (π)", astral_cosec(3.14159));
 
     printf("\n--- The Inverse Sine & Cosine Suite ---\n");
-    // Domain: [-1, 1]. Range: [-π/2, π/2] for arcsin, [0, π] for arccos
-    printf("ArcSin-ArcCos test1, 0: arcsin(0) = %f || arccos(0) = %f\n", arch_sin(0), arch_cos(0));
-    printf("ArcSin-ArcCos test2, 1 (Upper Bound): arcsin(1) = %f || arccos(1) = %f\n", arch_sin(1), arch_cos(1));
-    printf("ArcSin-ArcCos test3, -1 (Lower Bound): arcsin(-1) = %f || arccos(-1) = %f\n", arch_sin(-1), arch_cos(-1));
-    printf("ArcSin-ArcCos test4, 0.5 (pi/6 & pi/3): arcsin(0.5) = %f || arccos(0.5) = %f\n", arch_sin(0.5), arch_cos(0.5));
-    printf("ArcSin-ArcCos test5, -0.866025 (-sqrt(3)/2): arcsin(-0.866025) = %f || arccos(-0.866025) = %f\n", arch_sin(-0.866025), arch_cos(-0.866025));
+    TEST_FLT("ArcSin test1 (0)", arch_sin(0));
+    TEST_FLT("ArcCos test1 (0)", arch_cos(0));
+    TEST_FLT("ArcSin test2 (1)", arch_sin(1));
+    TEST_FLT("ArcCos test2 (1)", arch_cos(1));
+    TEST_FLT("ArcSin test3 (-1)", arch_sin(-1));
+    TEST_FLT("ArcCos test3 (-1)", arch_cos(-1));
+    TEST_FLT("ArcSin test4 (0.5)", arch_sin(0.5));
+    TEST_FLT("ArcCos test4 (0.5)", arch_cos(0.5));
 
     printf("\n--- The Inverse Tangent & Cotangent Suite ---\n");
-    // Domain: All real numbers. 
-    printf("ArcTan-ArcCot test1, 0: arctan(0) = %f || arccot(0) = %f\n", arch_tan(0), arch_cot(0));
-    printf("ArcTan-ArcCot test2, 1 (pi/4): arctan(1) = %f || arccot(1) = %f\n", arch_tan(1), arch_cot(1));
-    printf("ArcTan-ArcCot test3, -1 (-pi/4 & 3pi/4): arctan(-1) = %f || arccot(-1) = %f\n", arch_tan(-1), arch_cot(-1));
-    printf("ArcTan-ArcCot test4, 1.73205 (sqrt(3)): arctan(1.73205) = %f || arccot(1.73205) = %f\n", arch_tan(1.73205), arch_cot(1.73205));
-    printf("ArcTan-ArcCot test5, 1000.0 (Approaching Infinity): arctan(1000.0) = %f || arccot(1000.0) = %f\n", arch_tan(1000.0), arch_cot(1000.0));
+    TEST_FLT("ArcTan test1 (0)", arch_tan(0));
+    TEST_FLT("ArcCot test1 (0)", arch_cot(0));
+    TEST_FLT("ArcTan test2 (1)", arch_tan(1));
+    TEST_FLT("ArcCot test2 (1)", arch_cot(1));
+    TEST_FLT("ArcTan test3 (-1)", arch_tan(-1));
+    TEST_FLT("ArcCot test3 (-1)", arch_cot(-1));
+    TEST_FLT("ArcTan test4 (1000.0)", arch_tan(1000.0));
+    TEST_FLT("ArcCot test4 (1000.0)", arch_cot(1000.0));
 
     printf("\n--- The Inverse Secant & Cosecant Suite ---\n");
-    // Domain: x <= -1 or x >= 1. 
-    printf("ArcSec-ArcCsc test1, 1 (Boundary): arcsec(1) = %f || arccsc(1) = %f\n", arch_sec(1), arch_cosec(1));
-    printf("ArcSec-ArcCsc test2, -1 (Boundary): arcsec(-1) = %f || arccsc(-1) = %f\n", arch_sec(-1), arch_cosec(-1));
-    printf("ArcSec-ArcCsc test3, 2 (pi/3 & pi/6): arcsec(2) = %f || arccsc(2) = %f\n", arch_sec(2), arch_cosec(2));
-    printf("ArcSec-ArcCsc test4, -2 (2pi/3 & -pi/6): arcsec(-2) = %f || arccsc(-2) = %f\n", arch_sec(-2), arch_cosec(-2));
-    printf("ArcSec-ArcCsc test5, 1.1547 (2/sqrt(3)): arcsec(1.1547) = %f || arccsc(1.1547) = %f\n\n", arch_sec(1.1547), arch_cosec(1.1547));
+    TEST_FLT("ArcSec test1 (1)", arch_sec(1));
+    TEST_FLT("ArcCsc test1 (1)", arch_cosec(1));
+    TEST_FLT("ArcSec test2 (-1)", arch_sec(-1));
+    TEST_FLT("ArcCsc test2 (-1)", arch_cosec(-1));
+    TEST_FLT("ArcSec test3 (2)", arch_sec(2));
+    TEST_FLT("ArcCsc test3 (2)", arch_cosec(2));
+
     printf("\n=== THE CHAOS PROTOCOL (STRESS TESTS) ===\n\n");
-
-    // 1-4: The Domain Violations (Blatant Disregard for the Rules)
-    // arcsin and arccos expect [-1, 1]. arcsec and arccsc expect |x| >= 1.
-    printf("Chaos Test 1 (ArcSin Overload): arcsin(2.5) = %f\n", arch_sin(2.5));
-    printf("Chaos Test 2 (ArcCos Underload): arccos(-10.0) = %f\n", arch_cos(-10.0));
-    printf("Chaos Test 3 (ArcSec Deadzone): arcsec(0.5) = %f\n", arch_sec(0.5));
-    printf("Chaos Test 4 (ArcCsc Singularity): arccsc(0.0) = %f\n", arch_cosec(0.0));
-
-    // 5-8: The Edge Skimmers (Just barely crossing the boundaries)
-    // These test if your engine tries to compute before checking the domain, 
-    // or if floating-point inaccuracies push a valid number into invalid territory.
-    printf("Chaos Test 5 (ArcCos Edge Skim): arccos(1.0000001) = %f\n", arch_cos(1.0000001));
-    printf("Chaos Test 6 (ArcSin Edge Skim): arcsin(-1.0000001) = %f\n", arch_sin(-1.0000001));
-    printf("Chaos Test 7 (ArcSec Edge Skim): arcsec(0.9999999) = %f\n", arch_sec(0.9999999));
-    printf("Chaos Test 8 (ArcCsc Edge Skim): arccsc(-0.9999999) = %f\n", arch_cosec(-0.9999999));
-
-    // 9-12: The Extremes (Microscopics and Leviathans)
-    // Testing how the Taylor series and Newton-Raphson handle extreme float scaling.
-    printf("Chaos Test 9 (ArcTan Leviathan): arctan(1.0e15) = %f\n", arch_tan(1.0e15));
-    printf("Chaos Test 10 (ArcCot Negative Leviathan): arccot(-1.0e15) = %f\n", arch_cot(-1.0e15));
-    printf("Chaos Test 11 (ArcSin Microscopic): arcsin(1.0e-15) = %f\n", arch_sin(1.0e-15));
-    printf("Chaos Test 12 (ArcTan Microscopic): arctan(-1.0e-15) = %f\n", arch_tan(-1.0e-15));
-    printf("\n=====================================\n");
+    TEST_FLT("Chaos Test 1 (ArcSin Overload: 2.5)", arch_sin(2.5));
+    TEST_FLT("Chaos Test 2 (ArcCos Underload: -10.0)", arch_cos(-10.0));
+    TEST_FLT("Chaos Test 3 (ArcSec Deadzone: 0.5)", arch_sec(0.5));
+    TEST_FLT("Chaos Test 4 (ArcCsc Singularity: 0.0)", arch_cosec(0.0));
+    TEST_FLT("Chaos Test 5 (ArcCos Edge Skim: 1.0000001)", arch_cos(1.0000001));
+    TEST_FLT("Chaos Test 6 (ArcSin Edge Skim: -1.0000001)", arch_sin(-1.0000001));
+    TEST_FLT("Chaos Test 7 (ArcTan Leviathan: 1.0e15)", arch_tan(1.0e15));
 
     printf("\n--- Exponential Test ---\n");
-    printf("Exp Test1 (0): e^0 = %.5f\n", eon_growth(0));
-    printf("Exp Test2 (1): e^1 = %.5f\n", eon_growth(1));
-    printf("Exp Test3 (-1): e^-1 = %.5f\n", eon_growth(-1));
-    printf("Exp Test4 (2.5): e^2.5 = %.5f\n", eon_growth(2.5));
-    printf("Exp Test5 (-3.14): e^-3.14 = %.5f\n\n", eon_growth(-3.14));
+    TEST_FLT("Exp Test1 (0)", eon_growth(0));
+    TEST_FLT("Exp Test2 (1)", eon_growth(1));
+    TEST_FLT("Exp Test3 (-1)", eon_growth(-1));
+    TEST_FLT("Exp Test4 (2.5)", eon_growth(2.5));
 
-    printf("Ln test1: (0): ln(0) = %.5f\n", eon_log(0));
-    printf("Ln test2: (2.71828): ln(2.71828) = %.5f\n", eon_log(2.71828));
-    printf("Ln test3: (0.0001): ln(0.0001) = %.5f\n", eon_log(0.0001));
-    printf("Ln test4: (10^6): ln(10^6) = %.5f\n", eon_log(1.0e6));
-    printf("Ln test5: (-13): ln(-13) = %.5f\n\n", eon_log(-13));
+    printf("\n--- Logarithm Test ---\n");
+    TEST_FLT("Ln test1 (0)", eon_log(0));
+    TEST_FLT("Ln test2 (2.71828)", eon_log(2.71828));
+    TEST_FLT("Ln test3 (10^6)", eon_log(1.0e6));
+    TEST_FLT("Ln test4 (-13)", eon_log(-13));
 
-    printf("a^b test1: (2^3) = %.5f\n", base_growth(3,2));
-    printf("a^b test2: (4^0.5) = %.5f\n", base_growth(0.5, 4));
-    printf("a^b test3: (-2^-3) = %.5f\n", base_growth(-3,-2));
-    printf("a^b test4: (0^0) = %.5f\n", base_growth(0,0));
-    printf("a^b test5: (0^5) = %.5f\n", base_growth(5,0));
-    printf("a^b test6: (0^-3) = %.5f\n", base_growth(-3,0));
-    printf("a^b test7: (-5^0) = %.5f\n", base_growth(0,-5));
-    printf("a^b test8: (1^500) = %.5f\n", base_growth(500,1));
-    printf("a^b test9: (-4^0.5) = %.5f\n", base_growth(0.5,-4));
-    printf("a^b test10: (4^-0.5) = %.5f\n", base_growth(-0.5,4));
+    printf("\n--- Base Growth Test ---\n");
+    TEST_FLT("a^b test1 (2^3)", base_growth(3,2));
+    TEST_FLT("a^b test2 (4^0.5)", base_growth(0.5, 4));
+    TEST_FLT("a^b test3 (-2^-3)", base_growth(-3,-2));
+    TEST_FLT("a^b test4 (0^0)", base_growth(0,0));
+    TEST_FLT("a^b test5 (-5^0)", base_growth(0,-5));
+    TEST_FLT("a^b test6 (-4^0.5)", base_growth(0.5,-4));
 
     printf("\n--- Constants Forge ---\n");
-    printf("Pie by Machin's formula: %.15f\n", sacred_pie());
-    printf("Original Pie: 3.1415926535897932\n");
-    printf("e by me: %.15f\n", (2 + 1.0/fractional_e(30)));
-    printf("Original e: 2.718281828459045\n");
-    printf("Gamma (Euler's constant) by me (100 runs): %.10f\n", eon_remnant(50));
-    printf("Original Gamma: 0.577215664901532\n");
+    TEST_FLT("Pie by Machin's formula", sacred_pie());
+    printf("  -> Original Pie: 3.141592653589793\n");
+    
+    TEST_FLT("e by me", (2 + 1.0/fractional_e(1))); 
+    printf("  -> Original e  : 2.718281828459045\n");
+    
+    TEST_FLT("Gamma (Euler's constant) by me", eon_remnant(50));
+    printf("  -> Original Gam: 0.577215664901532\n");
 
     printf("\n=====================================\n");
     return 0;
