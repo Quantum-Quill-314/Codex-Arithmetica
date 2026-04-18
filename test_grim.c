@@ -14,8 +14,14 @@ int main() {
     printf("Root Test: Sqrt(25) = %f\n\n", origin_nroot(2, 25.0));
 
     printf("\n--- Combinatoric Engine ---\n");
-    printf("Factorial Test: 5! = %f\n", stellar_factorial(5));
-    printf("Edge Case Test: 0! and 1!: 0! = %f || 1! = %f\n\n", stellar_factorial(0), stellar_factorial(1));
+    printf("Factorial Test1: 5! = %f\n", stellar_factorial(5));
+    printf("Factorial Test2: 0! and 1!: 0! = %f || 1! = %f\n\n", stellar_factorial(0), stellar_factorial(1));
+
+    printf("Log Factorial Test1: ln(0!) = %f\n", abyssal_factorial(0));
+    printf("Log Factorial Test2: ln(-5!) (error) = %f\n", abyssal_factorial(-5));
+    printf("Log Factorial Test3: ln(12!) = %f\n", abyssal_factorial(12));
+    printf("Log Factorial Test4: ln(13!) = %f\n", abyssal_factorial(13));
+    printf("Log Factorial Test5: ln(100!) = %f\n", abyssal_factorial(100));
 
     printf("\n--- Trigonometric Suite ---\n");
     printf("Sin-Cos test1, 0: sin(0) = %f || cos(0) = %f\n", astral_sin(0),astral_cos(0));

@@ -12,6 +12,7 @@ double eon_remnant(int l);
 
 double origin_nroot(int n, double x); //V1: int n
 double stellar_factorial(int x); //v1: only positive integers
+double abyssal_factorial(long int x); //v1: 2 Bernoulli terms error factor
 int anchor(double x); //v1:
 
 //Trig Suite

@@ -18,7 +18,10 @@ double origin_nroot(int n, double x)
     for(int i = 0; ((x-zenith(n,x_g)) > PRECISION || (x-zenith(n,x_g)) < -PRECISION); i++)
     {
        if (i > ITERATIONS)
-       {return 701;}
+       {
+            printf("CRITICAL ENGINE FAILURE IN NROOT FOR X = %f\n", x);
+            return 701;
+       }
         x_g = x_g - ((zenith(n,x_g)-x) / (n*zenith(n-1,x_g)));
     }
     return x_g;
@@ -35,6 +38,18 @@ double stellar_factorial(int x)
         fact *= i;
     }
     return fact;
+}
+//v1: 2 Bernoulli terms error factor, x > 12
+double abyssal_factorial(long int x)
+{
+    if (x <= 12) 
+    {
+        if (x < 0) {return 702;}
+        return eon_log(stellar_factorial(x));
+    }
+    double correction = (0.5*eon_log(2*PIE*x)) + (1.0/(12.0*x)) - (1.0/(360.0*x*x*x));
+    double result = x*(eon_log(x) - 1);
+    return (result + correction);
 }
 
 //Trig Suite
@@ -156,7 +171,11 @@ double arch_tan(double x)
     {
         i++;
         tan_val = astral_tan(atan);
-        if (i > ITERATIONS) {return 701;}
+        if (i > ITERATIONS) 
+        {
+            printf("CRITICAL ENGINE FAILURE IN TAN FOR X = %f\n", x);
+            return 701;
+        }
         atan = atan - ((tan_val-x)/(1 + (tan_val*tan_val)));
     } while ((tan_val - x) > PRECISION || (x-tan_val) > PRECISION);
     return atan;
@@ -291,7 +310,11 @@ double eon_log(double x)
     double exp_val = eon_growth(N);
     for (int i = 0; (exp_val - xr) > PRECISION || (exp_val - xr) < -PRECISION; i++)
     {
-        if (i == ITERATIONS) {return 701;}
+        if (i == ITERATIONS) 
+        {
+            printf("CRITICAL ENGINE FAILURE IN EON_LOG FOR X = %f\n", x);
+            return 701;
+        }
         N = N - (2*(exp_val - xr))/(exp_val + xr);
         exp_val = eon_growth(N);
     }
