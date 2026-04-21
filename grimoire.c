@@ -1,16 +1,17 @@
 #include "grimoire.h"
 int GRIMOIRE_ERROR = 0;
-
+static const double bernoulli_evens[] = {1.0/6.0, -1.0/30.0, 1.0/42.0, -1.0/30.0, 5.0/66.0};
 //v1:
 int anchor(double x)
 {
-    if (GRIMOIRE_ERROR != 0) {return 0.0;}
-    if (x < 0)
-    {
+    if (GRIMOIRE_ERROR != 0) {return 0;} 
+    
+    if (x < 0) {
         if ((int)x - x == 0) {return (int)x;}
-        else {return ((int)x -1);}
+        else { return ((int)x - 1); }
     }
-    if (((int)x - x == 0 || x >= 0)) {return (int)x;}
+    
+    return (int)x; 
 }
 //v2: int n, without complex handling, with dynamic precision
 double origin_nroot(int n, double x)
@@ -318,7 +319,6 @@ double fractional_e(int k)
 double eon_remnant(int l)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
-    double bernoulli_evens[] = {1.0/6.0, -1.0/30.0, 1.0/42.0, -1.0/30.0, 5.0/66.0};
     double sum = 0;
     for (int i = 1; i <= l; i++)
     {
@@ -367,6 +367,7 @@ double eon_growth(double x)
     }
     return (eN*em);
 }
+//v2: optimized cycle runs using taylor series updations
 double eon_log(double x)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
@@ -379,7 +380,7 @@ double eon_log(double x)
     {
         for (int i = 0; xr < 1; i++)
         {
-            if (i == 15) {break;}
+            if (i == ITERATIONS) {GRIMOIRE_ERROR = 701; return 0.0;}
             xr = EULER*xr;
             count++;
         }
@@ -388,7 +389,7 @@ double eon_log(double x)
     {
         for (int i = 0; xr > EULER; i++)
         {
-            if (i == 15) {break;}
+            if (i == ITERATIONS) {GRIMOIRE_ERROR = 701; return 0.0;}
             xr = origin_nroot(2,xr);
             if (GRIMOIRE_ERROR != 0) {return 0.0;}
             count++;
@@ -398,13 +399,27 @@ double eon_log(double x)
     double exp_val = eon_growth(N);
     for (int i = 0; (exp_val - xr) > PRECISION || (exp_val - xr) < -PRECISION; i++)
     {
-        if (i == ITERATIONS) 
+        if (i == ITERATIONS)
         {
             GRIMOIRE_ERROR = 701;
             return 0.0;
         }
-        N = N - (2*(exp_val - xr))/(exp_val + xr);
-        exp_val = eon_growth(N);
+        
+        double delta = (2*(exp_val - xr))/(exp_val + xr);
+        N = N - delta;
+        
+        double abs_delta = (delta < 0) ? -delta : delta;
+        if (abs_delta > 0.2) 
+        {
+            exp_val = eon_growth(N);
+        } 
+        else 
+        {
+            double d2 = delta * delta;
+            double d3 = d2 * delta;
+            double d4 = d3 * delta;
+            exp_val = exp_val * (1.0 - delta + (d2 / 2.0) - (d3 / 6.0) + (d4 / 24.0));
+        }
     }
     if (x > 1) {return (zenith(count,2) * N);}
     else {return (N - count);}
