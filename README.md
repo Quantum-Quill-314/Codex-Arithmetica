@@ -1,8 +1,8 @@
-# Codex-Arithmatica
+# Codex-Arithmetica
 
 > *"To understand the universe, one must first learn to forge the constants that govern it. Here, we do not merely study the mathematics; we inhabit them."*
 
-**Codex-Arithmatica** is a custom, bare-metal mathematical engine built entirely from scratch in C. Designed to bypass standard system libraries (like `<math.h>`), this library forces the hardware to evaluate advanced numerical methods, continuous calculus approximations, and combinatorics through rigorously optimized, ground-up algorithmic architecture. It is an exercise in both computational dominance and calculated romanticism.
+**Codex-Arithmetica** is a custom, bare-metal mathematical engine built entirely from scratch in C. Designed to bypass standard system libraries (like `<math.h>`), this library forces the hardware to evaluate advanced numerical methods, continuous calculus approximations, and combinatorics through rigorously optimized, ground-up algorithmic architecture. It is an exercise in both computational dominance and calculated romanticism.
 
 ---
 
@@ -94,7 +94,7 @@ To check for computational paradoxes, verify the crystal after heavy operations:
 
 ## 🌌 Future Scope (The Uncharted Abyss)
 
-While Version One of the Grimoire has successfully mapped the foundational geometries and combinatoric depths, the true architecture of the continuous void awaits. Future expansions of the Codex-Arithmatica will encompass:
+While Version One of the Grimoire has successfully mapped the foundational geometries and combinatoric depths, the true architecture of the continuous void awaits. Future expansions of the Codex-Arithmetica will encompass:
 
 * **The Calculus Suite:** Direct, bare-metal implementations of Central Finite Difference for `O(h²)` differentiation, Simpson’s 1/3 Rule for numeric integration, and 4th-Order Runge-Kutta (RK4) methods for Ordinary Differential Equations.
 * **The Special Functions:** Charting the ancient phantoms of the continuous plane, including the Gamma Function `Γ(z)`, Beta Function `B(x,y)`, and the Riemann Zeta Function `ζ(s)`.

@@ -36,6 +36,7 @@ double origin_nroot(int n, double x)
 double stellar_factorial(int x)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
+    if (x > 170) {GRIMOIRE_ERROR = 704; return 0.0;}
     if (x < 0) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x == 0) {return 1;}
     if (x == 1) {return 1;}
@@ -60,6 +61,8 @@ unsigned long long int stellar_combinations(int n, int r)
     unsigned long long int result = 1;
     for (int i = 1; i <= r; i++) 
     {
+        //check for memory overload
+        if (n > 0 && result > 18446744073709551615ULL /n) {GRIMOIRE_ERROR = 704; return 0.0;}
         result *= n;
         result /= i;
         n--;
@@ -283,7 +286,7 @@ double arch_cos(double x)
 double arch_sec(double x)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
-    if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {GRIMOIRE_ERROR = 702; return 0.0;}
+    if (x < 1 && x > -1) {GRIMOIRE_ERROR = 702; return 0.0;}
     return (arch_cos(1/x));
 }
 //v1
@@ -319,6 +322,7 @@ double fractional_e(int k)
 double eon_remnant(int l)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
+    if (l > 1e30) {GRIMOIRE_ERROR = 704; return 0.0;}
     double sum = 0;
     for (int i = 1; i <= l; i++)
     {
@@ -351,6 +355,12 @@ double zenith(int n, double x)
 double eon_growth(double x)
 {
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
+    // (Limits for e^x in 64-bit double space, calculated by taking the ln of max number for double)
+    if (x > 709.78 || x < -745.13) 
+    {
+        GRIMOIRE_ERROR = 704; // Striking the Memory/Overflow Alarm
+        return 0.0;
+    }
     if (x == 0) {return 1;}
     int N = anchor(x);
     double m = x - N;
@@ -448,5 +458,6 @@ double base_growth(double x, double b)
     if (x < 0) {return (1.0/base_growth(-x,b));}
     double p = eon_log(b);
     if ( GRIMOIRE_ERROR != 0) {return 0.0;}
+    if (x * p > 709.78 || x * p < -745.13) {GRIMOIRE_ERROR = 704; return 0.0;}
     return (eon_growth(x*p));
 }
