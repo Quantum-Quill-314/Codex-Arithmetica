@@ -76,6 +76,7 @@ To check for computational paradoxes, users must verify the crystal after heavy 
 * **`701` (Iterator Error):** The maximum algorithmic loops (`ITERATIONS`) were reached without achieving `PRECISION`. Often triggered by asymptotic limits.
 * **`702` (Domain Error):** The input violates geometric boundaries (e.g., attempting arcsin(2.5) or ln(-5)).
 * **`703` (Division by Zero):** The continuous approximation attempted to divide by a microscopic float that the engine resolved to zero. Intercepted at vertical asymptotes like tan(π/2).
+* **`704` (Memory Overload Prediction):** The input value will cause a memory overload in the further calculation, hence the fucntion intercepted it at the start. Use alternative methods for you calculations.
 ---
 **Architect:** [Quantum Quill]  
 **Status:** In Active Development

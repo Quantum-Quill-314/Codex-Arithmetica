@@ -4,7 +4,7 @@ int GRIMOIRE_ERROR = 0;
 //v1:
 int anchor(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x < 0)
     {
         if ((int)x - x == 0) {return (int)x;}
@@ -12,17 +12,20 @@ int anchor(double x)
     }
     if (((int)x - x == 0 || x >= 0)) {return (int)x;}
 }
-//v1: int n, without complex handling.
+//v2: int n, without complex handling, with dynamic precision
 double origin_nroot(int n, double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double x_g = x/n;
-    for(int i = 0; ((x-zenith(n,x_g)) > PRECISION || (x-zenith(n,x_g)) < -PRECISION); i++)
+    double abs_x = (x < 0) ? -x : x;
+    double tolerance = (abs_x > 1.0) ? (PRECISION * abs_x) : PRECISION;
+
+    for(int i = 0; ((x-zenith(n,x_g)) > tolerance || (x-zenith(n,x_g)) < -tolerance); i++)
     {
         if (i > ITERATIONS)
         {
             GRIMOIRE_ERROR = 701;
-            return 0;
+            return 0.0;
         }
         x_g = x_g - ((zenith(n,x_g)-x) / (n*zenith(n-1,x_g)));
     }
@@ -31,7 +34,7 @@ double origin_nroot(int n, double x)
 //v1: only +ve integers, and for loop
 double stellar_factorial(int x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x < 0) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x == 0) {return 1;}
     if (x == 1) {return 1;}
@@ -42,10 +45,47 @@ double stellar_factorial(int x)
     }
     return fact;
 }
+//v1
+unsigned long long int stellar_combinations(int n, int r)
+{
+    if (GRIMOIRE_ERROR != 0) { return 0; }
+    
+    if (n >= 62) { GRIMOIRE_ERROR = 704; return 0; } 
+    if (n < 0 || r < 0 || r > n) { GRIMOIRE_ERROR = 702; return 0; }
+    if (r == 0 || r == n) { return 1; }
+
+    if (r > n - r) {r = n - r;}
+
+    unsigned long long int result = 1;
+    for (int i = 1; i <= r; i++) 
+    {
+        result *= n;
+        result /= i;
+        n--;
+    }
+
+    return result;
+}
+unsigned long long int stellar_permutations(int n, int r)
+{
+    if (GRIMOIRE_ERROR != 0) {return 0;}
+    if (n >= 20) {GRIMOIRE_ERROR = 704; return 0;} 
+    if (n < 0 || r < 0 || r > n) {GRIMOIRE_ERROR = 702; return 0;}
+    if (r == 0) {return 1;}
+
+    unsigned long long int result = 1;
+    for (int i = 1; i <= r; i++)
+    {
+        result *= n;
+        n--;
+    }
+    
+    return result;
+}
 //v1: 2 Bernoulli terms error factor, x > 12
 double abyssal_factorial(long int x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x <= 12) 
     {
         if (x < 0) {GRIMOIRE_ERROR = 702; return 0.0;}
@@ -56,12 +96,30 @@ double abyssal_factorial(long int x)
     double result = x*(eon_log(x) - 1);
     return (result + correction);
 }
+double abyssal_combinations(long int n,long int r)
+{
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
+    if (n < 0 || r < 0) {GRIMOIRE_ERROR = 702; return 0.0;}
+    if (n < r) {GRIMOIRE_ERROR= 702; return 0.0;}
+    if (r == 0 || r == n) {return 0.0;}
+    return (abyssal_factorial(n) - (abyssal_factorial(r)+abyssal_factorial(n-r)));
+}
+//v1:
+double abyssal_permutations(long int n,long int r)
+{
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
+    if (n < 0 || r < 0) {GRIMOIRE_ERROR = 702; return 0.0;}
+    if (n < r) {GRIMOIRE_ERROR= 702; return 0.0;}
+    if (r == 1) {return eon_log(n);}
+    if (r == 0) {return 0.0;}
+    return (abyssal_factorial(n) - abyssal_factorial(n-r));
+}
 
 //Trig Suite
 //v2: With Horner's Polynomial and only radian
 double astral_sin(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x > (2*PIE) || x < 0) //reducing to [0,2π]
     {
         int q = anchor(x/(2*PIE));
@@ -99,7 +157,7 @@ double astral_sin(double x)
 //v2: With Horner's Polynomial and only radian
 double astral_cos(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x > (2*PIE) || x < 0) //reducing to [0,2π]
     {
         int q = anchor(x/(2*PIE));
@@ -136,7 +194,7 @@ double astral_cos(double x)
 //v1
 double astral_tan(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((astral_cos(x) <= PRECISION) && (astral_cos(x) > -PRECISION))
     {GRIMOIRE_ERROR = 703; return 0.0;}
     double tanx = astral_sin(x)/astral_cos(x);
@@ -145,7 +203,7 @@ double astral_tan(double x)
 //v1
 double astral_cot(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((astral_sin(x) <= PRECISION) && (astral_sin(x) > -PRECISION))
     {GRIMOIRE_ERROR = 703; return 0.0;}
     double cotx = astral_cos(x)/astral_sin(x);
@@ -154,7 +212,7 @@ double astral_cot(double x)
 //v1
 double astral_sec(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((astral_cos(x) <= PRECISION) && (astral_cos(x) > -PRECISION))
     {GRIMOIRE_ERROR = 703; return 0.0;}
     double secx = 1/astral_cos(x);
@@ -162,7 +220,7 @@ double astral_sec(double x)
 }
 double astral_cosec(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((astral_sin(x) <= PRECISION) && (astral_sin(x) > -PRECISION))
     {GRIMOIRE_ERROR = 703; return 0.0;}
     double cosecx = 1/astral_sin(x);
@@ -172,7 +230,7 @@ double astral_cosec(double x)
 //v1:
 double arch_tan(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double atan;
     if (x == 0) {return 0;}
     if (x < 0.5 && x > -0.5) {atan = 0;}
@@ -197,14 +255,14 @@ double arch_tan(double x)
 //v1
 double arch_cot(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x == 0) {return PIE/2;}
     return (PIE/2 - arch_tan(x));
 }
 //v1
 double arch_sin(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x > 1 || x < -1) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x == 1) {return PIE/2;}
     if (x == -1) {return PIE/2;}
@@ -216,21 +274,21 @@ double arch_sin(double x)
 //v1
 double arch_cos(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x > 1 || x < -1) {GRIMOIRE_ERROR = 702; return 0.0;}
     return ((PIE/2)-arch_sin(x));
 }
 //v1
 double arch_sec(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {GRIMOIRE_ERROR = 702; return 0.0;}
     return (arch_cos(1/x));
 }
 //v1
 double arch_cosec(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((x <= 1 && x >= 0) || (x >= -1 && x < 0)) {GRIMOIRE_ERROR = 702; return 0.0;}
     return ((PIE/2)-arch_sec(x));
 }
@@ -238,7 +296,7 @@ double arch_cosec(double x)
 //v1: Machin's Formula
 double sacred_pie()
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double pie = 4*(4*arch_tan(1.0/5) - arch_tan(1.0/239));
     if (GRIMOIRE_ERROR != 0) {return 0.0;}
     return pie;
@@ -246,7 +304,7 @@ double sacred_pie()
 //v1: continued fraction
 double fractional_e(int k)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     int max = 30;
     int ak = 1;
     if ((k % 3) == 2) {ak = 2*(k+1)/3;}
@@ -259,7 +317,7 @@ double fractional_e(int k)
 //v1:
 double eon_remnant(int l)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double bernoulli_evens[] = {1.0/6.0, -1.0/30.0, 1.0/42.0, -1.0/30.0, 5.0/66.0};
     double sum = 0;
     for (int i = 1; i <= l; i++)
@@ -278,7 +336,7 @@ double eon_remnant(int l)
 //v2: exponentiation by squaring
 double zenith(int n, double x) 
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double result = 1;
     while (n > 0)
     {
@@ -292,7 +350,7 @@ double zenith(int n, double x)
 //v1:
 double eon_growth(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x == 0) {return 1;}
     int N = anchor(x);
     double m = x - N;
@@ -311,7 +369,7 @@ double eon_growth(double x)
 }
 double eon_log(double x)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if (x <= 0) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x == 1) {return 0;}
     //input reduction
@@ -353,20 +411,20 @@ double eon_log(double x)
 }
 double log_base(double x, double b)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((b - 1) < PRECISION && (b - 1) > -PRECISION) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (b <= 0) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x <= 0) {GRIMOIRE_ERROR = 702; return 0.0;}
     
     double log_x = eon_log(x);
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     double log_b = eon_log(b);
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     return log_x / log_b;
 }
 double base_growth(double x, double b)
 {
-    if (GRIMOIRE_ERROR != 0) { return 0.0; }
+    if (GRIMOIRE_ERROR != 0) {return 0.0;}
     if ((x == 0) && (b == 0)) {GRIMOIRE_ERROR = 702; return 0.0;}
     if (x == 0) {return 1;}
     if ((b == 0 && x != 0 && x > 0)) {return 0;}

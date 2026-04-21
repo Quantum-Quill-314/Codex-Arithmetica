@@ -1,32 +1,45 @@
 #include <stdio.h>
 #include "grimoire.h"
 
-void assess_engine(const char* label, double result, int is_int) {
-    if (GRIMOIRE_ERROR != 0) {
+void assess_engine(const char* label, double result, int is_int) 
+{
+    if (GRIMOIRE_ERROR != 0) 
+    {
         // The engine failed! Print the dummy 0 and the exact error code.
-        if (is_int) {
-            printf("%s = 0", label);
-        } else {
-            printf("%s = 0.000000", label);
-        }
+        if (is_int) {printf("%s = 0", label);} 
+        else {printf("%s = 0.000000", label);}
         
-        if (GRIMOIRE_ERROR == 701) {
+        if (GRIMOIRE_ERROR == 701) 
+        {
             printf("  [ERROR: Max iterations reached, without precision]\n");
-        } else if (GRIMOIRE_ERROR == 702) {
+        } 
+        else if (GRIMOIRE_ERROR == 702) 
+        {
             printf("  [ERROR: Domain error]\n");
-        } else if (GRIMOIRE_ERROR == 703) {
+        } 
+        else if (GRIMOIRE_ERROR == 703) 
+        {
             printf("  [ERROR: Div by 0 error]\n");
-        } else {
+        } 
+        else if (GRIMOIRE_ERROR == 704)
+        {
+            printf("  [ERROR: Memory Overload Prediction]\n");
+        }
+        else 
+        {
             printf("  [ERROR: Unknown Anomaly %d]\n", GRIMOIRE_ERROR);
         }
-        
-        // Reset the crystal for the next test!
         GRIMOIRE_ERROR = 0; 
-    } else {
+    } 
+    else
+    {
         // The engine succeeded! Print the pure math.
-        if (is_int) {
+        if (is_int) 
+        {
             printf("%s = %d\n", label, (int)result);
-        } else {
+        } 
+        else 
+        {
             printf("%s = %.10f\n", label, result);
         }
     }
@@ -53,13 +66,38 @@ int main() {
     TEST_FLT("Factorial Test1: 5!", stellar_factorial(5));
     TEST_FLT("Factorial Test2: 0!", stellar_factorial(0));
     TEST_FLT("Factorial Test3: 1!", stellar_factorial(1));
-
+    printf("\n");
     TEST_FLT("Log Factorial Test1: ln(0!)", abyssal_factorial(0));
     TEST_FLT("Log Factorial Test2: ln(-5!)", abyssal_factorial(-5));
     TEST_FLT("Log Factorial Test3: ln(12!)", abyssal_factorial(12));
     TEST_FLT("Log Factorial Test4: ln(13!)", abyssal_factorial(13));
     TEST_FLT("Log Factorial Test5: ln(100!)", abyssal_factorial(100));
-
+    printf("\n");
+    TEST_INT("nCr Test 1 (The Mirror): 10C8", stellar_combinations(10, 8));
+    TEST_INT("nCr Test 2 (The Heavy Weave): 20C10", stellar_combinations(20, 10));
+    TEST_INT("nCr Test 3 (The Domain Trap): 5C8", stellar_combinations(5, 8));
+    TEST_INT("nCr Test 4 (The 64-bit Horizon): 65C3", stellar_combinations(65, 3));
+    TEST_INT("nCr Test 5 (The Empty Bucket): 5C0", stellar_combinations(5, 0));
+    printf("\n");
+    TEST_INT("nPr Test 1 (The Standard Weave): 5P3", stellar_permutations(5, 3));
+    TEST_INT("nPr Test 2 (The Full Arrangement): 5P5", stellar_permutations(5, 5));
+    TEST_INT("nPr Test 3 (The Empty Podium): 10P0", stellar_permutations(10, 0));
+    TEST_INT("nPr Test 4 (The Domain Trap): 5P8", stellar_permutations(5, 8));
+    TEST_INT("nPr Test 5 (The Memory Horizon): 25P3", stellar_permutations(25, 3));
+    printf("\n");
+    TEST_FLT("Log nCr 1 (The Shallows): 10C8", abyssal_combinations(10, 8));
+    TEST_FLT("Log nCr 2 (The Empty Void): 150C0", abyssal_combinations(150, 0));
+    TEST_FLT("Log nCr 3 (The Full Set): 150C150", abyssal_combinations(150, 150));
+    TEST_FLT("Log nCr 4 (The Domain Trap): 5C8", abyssal_combinations(5, 8));
+    TEST_FLT("Log nCr 5 (The Deep Weave): 100C50", abyssal_combinations(100, 50));
+    TEST_FLT("Log nCr 6 (CHAOS: The Leviathan): 10000C5000", abyssal_combinations(10000, 5000));
+    printf("\n");
+    TEST_FLT("Log nPr 1 (The Shallows): 10P3", abyssal_permutations(10, 3));
+    TEST_FLT("Log nPr 2 (The Empty Podium): 150P0", abyssal_permutations(150, 0));
+    TEST_FLT("Log nPr 3 (The Lone Survivor): 150P1", abyssal_permutations(150, 1));
+    TEST_FLT("Log nPr 4 (The Domain Trap): 5P8", abyssal_permutations(5, 8));
+    TEST_FLT("Log nPr 5 (The Full Arrangement): 150P150", abyssal_permutations(150, 150));
+    TEST_FLT("Log nPr 6 (CHAOS: The Infinite Line): 10000P9999", abyssal_permutations(10000, 9999));
     printf("\n--- Trigonometric Suite ---\n");
     TEST_FLT("Sin test1 (0)", astral_sin(0));
     TEST_FLT("Cos test1 (0)", astral_cos(0));
