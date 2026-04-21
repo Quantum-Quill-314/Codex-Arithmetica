@@ -28,9 +28,20 @@
 
 ---
 
-## 🔮 Syntax of the Spells (Function Arguments & Usage)
+## 🔮 Syntax of the Spells (Compilation & Usage)
 
-To utilize the Codex, include the Grimoire header (`#include "grimoire.h"`) in your C environment. 
+To utilize the Codex in your own files, you must first include the Grimoire header (`#include "grimoire.h"`) at the top of your C environment. This acts as the index, declaring the spells to your compiler. 
+
+However, the header is merely the promise; the actual continuous machinery resides within `grimoire.c`. When forging your final executable, both files must be mathematically linked.
+
+**The Automated Forge (Makefile):**
+For immediate diagnostics and testing, use the provided `Makefile`. Simply open your terminal in the project directory and strike the anvil:
+`make run`
+This will automatically compile `grimoire.c` alongside your `test_grim.c` suite and execute the output.
+
+**Manual Compilation:**
+If you are integrating the Grimoire into your own external projects, you must explicitly link the engine during compilation:
+`gcc your_main_file.c grimoire.c -o your_program`
 
 ### 1. Foundation & Roots
 * `int anchor(double x);` *(Mathematical Floor)*
