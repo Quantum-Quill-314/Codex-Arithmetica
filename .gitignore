@@ -7,5 +7,12 @@
 *.o
 *.obj
 
-# VS Code specific workspace settings (optional but good practice)
+# The Compilation Graveyard (Crucial for the new architecture)
+build/
+
+# Language Server / Tooling Artifacts
+compile_commands.json
+.cache/
+
+# VS Code specific workspace settings
 .vscode/
