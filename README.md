@@ -15,19 +15,19 @@ The physical structure of the repository has evolved to house both the foundatio
 
 ```text
 Codex-Arithmetica/
-├── build/               # Compiled binaries and object files[cite: 1]
+├── build/               # Compiled binaries and object files
 ├── src/
-│   ├── grimoire/        # The foundational scalar and continuous engines[cite: 1]
-│   │   ├── grimoire.c   # Core implementations[cite: 1]
-│   │   └── grimoire.h   # Declarations and index[cite: 1]
-│   └── tapestry/        # The multidimensional linear algebra and quantum suite[cite: 1]
-│       └── codex_arithmetica.h # Overarching library header[cite: 1]
+│   ├── grimoire/        # The foundational scalar and continuous engines
+│   │   ├── grimoire.c   # Core implementations
+│   │   └── grimoire.h   # Declarations and index
+│   └── tapestry/        # The multidimensional linear algebra and quantum suite
+│   └── codex_arithmetica.h # Overarching library header
 ├── tests/
-│   ├── test_grim.c      # Diagnostic suite for continuous functions[cite: 1]
-│   └── test.c           # General diagnostic runner[cite: 1]
-├── .gitignore           # Repository filters[cite: 1]
-├── Makefile             # The Automated Forge[cite: 1]
-└── README.md            # The master index[cite: 1]
+│   ├── test_grim.c      # Diagnostic suite for continuous functions
+│   └── test.c           # General diagnostic runner
+├── .gitignore           # Repository filters
+├── Makefile             # The Automated Forge
+└── README.md            # The master index
 
 ```
 
