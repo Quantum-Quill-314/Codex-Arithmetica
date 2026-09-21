@@ -1,103 +1,221 @@
 # Codex-Arithmetica
 
 > *"To understand the universe, one must first learn to forge the constants that govern it. Here, we do not merely study the mathematics; we inhabit them."*
+> 
 
 **Codex-Arithmetica** is a custom, bare-metal mathematical engine built entirely from scratch in C. Designed to bypass standard system libraries (like `<math.h>`), this library forces the hardware to evaluate advanced numerical methods, continuous calculus approximations, and combinatorics through rigorously optimized, ground-up algorithmic architecture. It is an exercise in both computational dominance and calculated romanticism.
 
+With the introduction of the Tapestry Suite, the Codex now bridges the gap between single-threaded scalar approximations and high-dimensional, dynamically threaded linear algebra spaces.
+
 ---
 
-## 📜 The Grimoire's Contents (Project Scope)
+## 📂 Architectural Geometry (Directory Structure)
+
+The physical structure of the repository has evolved to house both the foundational scalar math and the expanding multidimensional suites:
+
+```text
+Codex-Arithmetica/
+├── build/               # Compiled binaries and object files[cite: 1]
+├── src/
+│   ├── grimoire/        # The foundational scalar and continuous engines[cite: 1]
+│   │   ├── grimoire.c   # Core implementations[cite: 1]
+│   │   └── grimoire.h   # Declarations and index[cite: 1]
+│   └── tapestry/        # The multidimensional linear algebra and quantum suite[cite: 1]
+│       └── codex_arithmetica.h # Overarching library header[cite: 1]
+├── tests/
+│   ├── test_grim.c      # Diagnostic suite for continuous functions[cite: 1]
+│   └── test.c           # General diagnostic runner[cite: 1]
+├── .gitignore           # Repository filters[cite: 1]
+├── Makefile             # The Automated Forge[cite: 1]
+└── README.md            # The master index[cite: 1]
+
+```
+
+---
+
+## 📜 Book I: The Grimoire (Continuous & Discrete Engine)
+
+The foundational machinery handling continuous approximations and discrete logic.
 
 ### I. Continuous Approximations (The Core Engine)
+
 * **Foundation Mechanics (`anchor`, `zenith`):** Custom implementations for floating-point floor extraction and integer exponentiation via rapid-squaring iterative loops.
-* **N-th Root (`origin_nroot`):** Implemented using the Newton-Raphson Method for rapid convergence to a predefined precision boundary:
-  $$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$$
+
+
+* **N-th Root (`origin_nroot`):** Implemented using the Newton-Raphson Method for rapid convergence to a predefined precision boundary.
+
+
 * **Trigonometric Suite (`astral_sin`, `astral_cos`, etc.):** Base functions evaluated using Horner's Polynomial method for extreme computational efficiency, coupled with rigorous Modulo 2π argument reduction to map all reals to the `[0, π/2]` domain. Derived functions feature custom division-by-zero intercepts.
+
+
 * **Inverse Trigonometry (`arch_tan`, `arch_sin`, etc.):** Anchored by a highly volatile Newton-Raphson loop for `arch_tan`. The rest of the suite is dynamically calculated via geometric right-triangle identities and complementary angle translations, fortified by strict domain limit guards.
-* **Logarithms & Exponentials (`eon_growth`, `eon_log`, `log_base`, `base_growth`):** Evaluated via Taylor Series Expansions for `e^x` and Halley’s Method (Cubic Convergence) for `ln(x)`. Features a highly optimized "Paranoia Gate" and Taylor Series Shadow Update to update exponential weights instantly without recalculating the heavy series from scratch.
+
+
+* **Logarithms & Exponentials (`eon_growth`, `eon_log`, `log_base`, `base_growth`):** Evaluated via Taylor Series Expansions for $e^x$ and Halley’s Method for $ln(x)$. Features a highly optimized "Paranoia Gate" and Taylor Series Shadow Update to update exponential weights instantly without recalculating the heavy series from scratch.
+
+
 
 ### II. Combinatoric & Algebraic Foundations
+
 * **The Discrete Engine (`stellar_factorial`, `stellar_combinations`, `stellar_permutations`):** Utilizes rapid iterative loops and simultaneous multiply/divide weaves to calculate exact positive integers, safeguarded against early 64-bit memory ceilings.
+
+
 * **The Abyssal Engine (`abyssal_factorial`, `abyssal_combinations`, `abyssal_permutations`):** Calculates factorials and massive arrangements in continuous log-space using Stirling’s Approximation. Injects targeted Bernoulli error terms to guarantee immense precision, allowing the engine to calculate Leviathans (like 10000C5000) while entirely bypassing standard hardware crash limits.
 
+
+
 ### III. The Universal Constants Forge
-* **π Engine (`sacred_pie`):** Evaluated using Machin’s Formula:
-  $$\frac{\pi}{4} = 4 \arctan\left(\frac{1}{5}\right) - \arctan\left(\frac{1}{239}\right)$$
+
+* **π Engine (`sacred_pie`):** Evaluated using Machin’s Formula.
+
+
 * **Euler’s Number (e):** Evaluated using Euler's Continued Fraction (The Infinite Staircase) via deep recursive structures (`fractional_e`).
-* **Euler-Mascheroni Constant (γ):** Calculated via the limit of the Harmonic series scaled against the continuous logarithmic curve with read-only memory (`static const`) Bernoulli error corrections (`eon_remnant`).
+
+
+* **Euler-Mascheroni Constant (γ):** Calculated via the limit of the Harmonic series scaled against the continuous logarithmic curve with read-only memory Bernoulli error corrections (`eon_remnant`).
+
+
 
 ---
 
-## 🔮 Syntax of the Spells (Compilation & Usage)
+## 🕸️ Book II: The Tapestry Suite (Linear Algebra & Quantum Mechanics)
 
-To utilize the Codex in your own files, you must first include the Grimoire header (`#include "grimoire.h"`) at the top of your C environment. This acts as the index, declaring the spells to your compiler. 
+Where the Grimoire manipulates the singular point, the Tapestry weaves the multidimensional space. Algorithms are currently pending architectural decree.
 
-However, the header is merely the promise; the actual continuous machinery resides within `grimoire.c`. When forging your final executable, both files must be mathematically linked.
+### I. The Vectorial Loom (Expanded Foundations)
 
-**The Automated Forge (Makefile):**
-For immediate diagnostics and testing, use the provided `Makefile`. Simply open your terminal in the project directory and strike the anvil:
-`make run`
-This will automatically compile `grimoire.c` alongside your `test_grim.c` suite and execute the output.
+* **Inner (Dot) Product:** Measures directional similarity and is the mathematical heartbeat of calculating neuron activations.
 
-**Manual Compilation:**
-If you are integrating the Grimoire into your own external projects, you must explicitly link the engine during compilation:
-`gcc your_main_file.c grimoire.c -o your_program`
 
-### 1. Foundation & Roots
-* `int anchor(double x);` *(Mathematical Floor)*
-* `double zenith(int n, double x);` *(Calculates `x^n` via rapid squaring)*
-* `double origin_nroot(int n, double x);` *(Calculates the n-th root of x)*
+* *Implementation Algorithm:* [ To Be Decided ]
 
-### 2. Exponentials & Logarithms
-* `double eon_growth(double x);` *(Calculates `e^x`)*
-* `double eon_log(double x);` *(Calculates `ln(x)`)*
-* `double log_base(double x, double b);` *(Calculates `log_b(x)`)*
-* `double base_growth(double x, double b);` *(Calculates `b^x`)*
 
-### 3. The Combinatoric Engine
-* `double stellar_factorial(int x);`
-* `unsigned long long int stellar_combinations(int n, int r);`
-* `unsigned long long int stellar_permutations(int n, int r);`
-  * **x, n, r:** Positive integers bounded by strict geometric limits to prevent integer overflow. Returns exact discrete values.
-* `double abyssal_factorial(long int x);`
-* `double abyssal_combinations(long int n, long int r);`
-* `double abyssal_permutations(long int n, long int r);`
-  * **Returns:** The natural logarithm of the factorial/arrangement (`ln(n!)` or `ln(nCr)`), mapping infinite complexities into safely manageable continuous floats.
+* **Vector Norms ($L_1, L_2, L_\infty$):** Essential for machine learning regularization and normalizing quantum probability amplitudes so they sum to unity.
 
-### 4. Trigonometry & Inverse Trigonometry
-* `double astral_sin(double x);` | `double astral_cos(double x);` | `double astral_tan(double x);`
-* `double arch_sin(double x);` | `double arch_cos(double x);` | `double arch_tan(double x);`
-*(Full suite of 6 standard and 6 inverse functions available. Trigonometric inputs expect radians. Inverse outputs return principal angles in radians).*
 
-### 5. Constants Forge
-* `double sacred_pie();` *(Returns π)*
-* `double fractional_e(int k);` *(Seed with `k=1` to calculate Euler's structural fractions)*
-* `double eon_remnant(int l);` *(Returns Euler-Mascheroni Constant γ)*
+* *Implementation Algorithm:* [ To Be Decided ]
+
+
+* **Cosine Similarity:** The absolute soul of Natural Language Processing and attention mechanisms, determining how closely two dimensional "thoughts" align regardless of their sheer volume.
+
+
+* *Implementation Algorithm:* [ To Be Decided ]
+
+
+* **The Outer Product ($u \otimes v$):** Weaves two isolated 1D vectors into a full Rank-1 matrix. The structural foundation for computing covariance matrices and crafting the initial stages of neural self-attention.
+
+
+* *Implementation Algorithm:* [ To Be Decided ]
+
+
+* **Vector Projection:** Projects one vector onto another to strip away orthogonal noise. The engine behind the Gram-Schmidt process.
+
+
+* *Implementation Algorithm:* [ To Be Decided ]
+
+
+
+### II. The Matrix Forge & Abyssal Decompositions
+
+* **Matrix Operations:** Multiplication Engine, Determinant, Trace, Gauss-Jordan Inversion, Hermitian Adjoint, LU Decomposition, Jacobian, and Hessian Matrix Construction.
+
+
+* *Implementation Algorithms:* [ To Be Decided - Evaluating Strassen's vs. Standard O(N³) ]
+
+
+* **Decompositions:** Eigen-Decomposition ($A = Q \Lambda Q^{-1}$), QR Decomposition, and Singular Value Decomposition (SVD).
+
+
+* *Implementation Algorithms:* [ To Be Decided ]
+
+
+
+### III. Temporal Forges & State Mechanics
+
+* **Temporal/Inverse Methods:** Matrix Exponentiation ($e^{At}$), Cholesky Decomposition, and Moore-Penrose Pseudoinverse.
+
+
+* *Implementation Algorithms:* [ To Be Decided ]
+
+
+* **State Mechanics:** The Commutator ($[A, B]$), Vectorized Softmax, Kullback-Leibler (KL) Divergence, Density Matrix Construction ($\rho = \vert{}\psi\rangle\langle\psi\vert{}$), and Pauli Operators ($\sigma_x, \sigma_y, \sigma_z$).
+
+
+* *Implementation Algorithms:* [ To Be Decided ]
+
+
 
 ---
 
-## ⚙️ The Silent Alarm (Global Error State)
+## ⚙️ The Duality of Error Control (Architecture)
 
-**CRITICAL ARCHITECTURE:** To preserve the ability to chain continuous equations (e.g., `astral_sin(eon_log(x))`) without hardware collisions, the Grimoire utilizes a Global Error State (The Silent Alarm). 
+To prevent catastrophic hardware faults during infinite asymptotic limits or thread collisions, the engine utilizes two distinct philosophical approaches to error handling.
 
-Every function features a pre-emptive **Guardian Check**. If an inner calculation violates mathematical reality, the engine safely returns a harmless ghost value of `0.0` and strikes the global alarm, cascading a shutdown outward to prevent fatal hardware CPU crashes.
+### 1. The Silent Alarm (Grimoire Global State)
 
-To check for computational paradoxes, verify the crystal after heavy operations: `extern int GRIMOIRE_ERROR;`
+To preserve the ability to chain continuous equations (e.g., `astral_sin(eon_log(x))`) without hardware collisions, the Grimoire utilizes a Global Error State (The Silent Alarm). Every function features a pre-emptive Guardian Check. If mathematical reality is violated, it safely returns `0.0` and strikes the global alarm, cascading a shutdown outward.
 
-* **`0` (Absolute Peace):** The calculation was mathematically successful.
-* **`701` (Iterator Error):** The maximum algorithmic loops (`ITERATIONS`) were reached without achieving `PRECISION`. Often triggered by infinite asymptotic limits.
-* **`702` (Domain Error):** The input violates geometric boundaries (e.g., attempting arcsin(2.5) or ln(-5)).
-* **`703` (Division by Zero):** The continuous approximation attempted to divide by a microscopic float that the engine resolved to zero. Intercepted at vertical asymptotes like tan(π/2).
-* **`704` (Memory Overload Prediction):** The input value will cause a physical integer memory overload further in the calculation. The function intercepts it before the CPU is crushed. Use the Abyssal (log-space) functions for these calculations instead.
+Verify `extern int GRIMOIRE_ERROR;` after heavy operations:
+
+* **`0`:** Absolute Peace.
+
+
+* **`701`:** Iterator Error (Maximum algorithmic loops reached).
+
+
+* **`702`:** Domain Error (Input violates geometric boundaries).
+
+
+* **`703`:** Division by Zero.
+
+
+* **`704`:** Memory Overload Prediction (Physical integer memory overload predicted; forces a halt before CPU crush).
+
+
+
+### 2. The Tapestry Alarm (Dynamic Error Architecture)
+
+To conquer the chaotic variance of both modern multi-core processors and resource-starved embedded silicon, the Tapestry Suite abandons static error tracking for a dynamic, environment-aware architecture. It commands the unpredictable nature of execution, adapting to statistical and systemic variance with absolute confidence rather than fear.
+
+* **The Preprocessor Shapeshifter:** At compilation, the engine detects C11 threading support. If present, it creates an Isolated Echo (`_Thread_local int TAPESTRY_ERROR`), granting perfect, concurrent safety. If threading is absent, it safely degrades to a standard global variable for embedded loops.
+
+
+* **The Structural Vessels:** Data is wrapped in lightweight diagnostic structs (`TapestryVector` and `TapestryMatrix`) that carry their dimensions, allowing for absolute $O(1)$ Guardian Checks before heavy loops begin.
+
+
+* **The Guardian Gate:** A strict three-phase execution plan.
+
+
+1. **Pre-Emptive Guardian Check:** Evaluates physical/mathematical validity (e.g., matrix dimension matching, singularity checks) before loops begin.
+
+
+2. **The Strike & Ghost Return:** If Phase 1 fails, it mutates `TAPESTRY_ERROR` and bypasses the heavy operation, returning a ghost value.
+
+
+3. **The Unfettered Abyss:** If passed, the algorithm enters deeply nested loops with zero `if(TAPESTRY_ERROR)` conditionals, ensuring the CPU pipeline flows without branching taxes.
+
+
+
+
+
+*(Tapestry Error Codes will be populated as the algorithmic foundation is cemented.)*
 
 ---
 
 ## 🌌 Future Scope (The Uncharted Abyss)
 
-While Version One of the Grimoire has successfully mapped the foundational geometries and combinatoric depths, the true architecture of the continuous void awaits. Future expansions of the Codex-Arithmetica will encompass:
+Future expansions of the Codex-Arithmetica will continue charting the ancient phantoms of the continuous plane:
 
-* **The Calculus Suite:** Direct, bare-metal implementations of Central Finite Difference for `O(h²)` differentiation, Simpson’s 1/3 Rule for numeric integration, and 4th-Order Runge-Kutta (RK4) methods for Ordinary Differential Equations.
-* **The Special Functions:** Charting the ancient phantoms of the continuous plane, including the Gamma Function `Γ(z)`, Beta Function `B(x,y)`, and the Riemann Zeta Function `ζ(s)`.
+* **The Calculus Suite:** Direct, bare-metal implementations of Central Finite Difference for $O(h^2)$ differentiation, Simpson’s 1/3 Rule for numeric integration, and 4th-Order Runge-Kutta (RK4) methods for Ordinary Differential Equations.
 
-**Architect:** [Quantum Quill]  
-**Status:** Version 1: Basic Maths Complete!✅☑️
+
+* **The Special Functions:** Charting the Gamma Function $\Gamma(z)$, Beta Function $B(x,y)$, and the Riemann Zeta Function $\zeta(s)$.
+
+
+
+**Architects:**
+1. Quantum-Quill-314
+2. irxchand
+3. raghunandana1
+
+**Status:** Grimoire Forged ✅ | Tapestry Suite: Actively Weaving... 🕸️🧵
