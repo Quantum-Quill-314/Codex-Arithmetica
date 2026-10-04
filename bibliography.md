@@ -53,15 +53,15 @@ This document provides the formal academic references and computer arithmetic li
 * **Citation:** J.-M. Muller, *Elementary Functions: Algorithms and Implementation*, 3rd ed. Boston, MA, USA: Birkhäuser, 2016, Chapter 5 ("Inverse trigonometric functions"), pp. 141–168.
 
 ### [13] `arch_sec(double x)`
-* **Operation:** Inverse secant ($\operatorname{arcsec} x$) via reciprocal identity $\arccos(1/x)$.
+* **Operation:** Inverse secant ($\sec^{-1} x$) via reciprocal identity $\arccos(1/x)$.
 * **Citation:** J.-M. Muller, *Elementary Functions: Algorithms and Implementation*, 3rd ed. Boston, MA, USA: Birkhäuser, 2016, Chapter 5 ("Inverse trigonometric functions"), pp. 141–168.
 
 ### [14] `arch_csc(double x)`
-* **Operation:** Inverse cosecant ($\operatorname{arccsc} x$) via reciprocal identity $\arcsin(1/x)$.
+* **Operation:** Inverse cosecant ($\csc^{-1} x$) via reciprocal identity $\arcsin(1/x)$.
 * **Citation:** J.-M. Muller, *Elementary Functions: Algorithms and Implementation*, 3rd ed. Boston, MA, USA: Birkhäuser, 2016, Chapter 5 ("Inverse trigonometric functions"), pp. 141–168.
 
 ### [15] `arch_cot(double x)`
-* **Operation:** Inverse cotangent ($\operatorname{arccot} x$) via complementary translation ($\frac{\pi}{2} - \arctan x$).
+* **Operation:** Inverse cotangent ($\cot^{-1} x$) via complementary translation ($\frac{\pi}{2} - \arctan x$).
 * **Citation:** J.-M. Muller, *Elementary Functions: Algorithms and Implementation*, 3rd ed. Boston, MA, USA: Birkhäuser, 2016, Chapter 5 ("Inverse trigonometric functions"), pp. 141–168.
 
 ### [16] `eon_growth(double x)`
