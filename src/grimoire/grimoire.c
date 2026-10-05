@@ -1,17 +1,33 @@
 #include "grimoire.h"
 int GRIMOIRE_ERROR = 0;
 static const double bernoulli_evens[] = {1.0/6.0, -1.0/30.0, 1.0/42.0, -1.0/30.0, 5.0/66.0};
-//v1:
-int anchor(double x)
+
+//v2: bit-wise memory handling 
+double anchor(double x)
 {
-    if (GRIMOIRE_ERROR != 0) {return 0;} 
-    
-    if (x < 0) {
-        if ((int)x - x == 0) {return (int)x;}
-        else { return ((int)x - 1); }
+    if (GRIMOIRE_ERROR != 0) {return 0;}
+    uint64_t bin_x;
+    memcpy(&bin_x, &x, sizeof(bin_x));
+    short int sign = bin_x >> 63;
+    int64_t bin_expo = ((bin_x >> 52) & 2047) - 1023;
+    if (bin_expo < 0) 
+    {
+        if (sign) {return -1.0;}
+        else {return 0.0;}
+    }
+    else if (bin_expo >= 52)
+    {
+        return x;
+    }
+    else if (bin_expo >= 0 && bin_expo < 52)
+    {
+        uint64_t clean_bin_x = bin_x & ~((1ULL << (52 - bin_expo)) - 1);
+        double result;    
+        memcpy(&result, &clean_bin_x, sizeof(result));
+        if (sign && (bin_x != clean_bin_x)) {return result-1.0;}
+        else {return result;}
     }
     
-    return (int)x; 
 }
 //v2: int n, without complex handling, with dynamic precision
 double origin_nroot(int n, double x)

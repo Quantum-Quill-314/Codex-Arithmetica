@@ -1,4 +1,7 @@
 #ifndef CODEX_GRIMOIRE_H
+#include <stdint.h>
+#include <string.h>
+
 #define CODEX_GRIMOIRE_H
 
 #define PRECISION 1.0e-12
@@ -16,7 +19,7 @@ double eon_remnant(int l);
 
 
 double origin_nroot(int n, double x); //V1: int n
-int anchor(double x); //v1:
+double anchor(double x); //v1:
 //Combinatorics suite
 double stellar_factorial(int x); //v1: only positive integers
 double abyssal_factorial(long int x); //v1: 2 Bernoulli terms error factor
