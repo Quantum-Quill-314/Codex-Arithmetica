@@ -10,6 +10,9 @@ double anchor(double x)
     memcpy(&bin_x, &x, sizeof(bin_x));
     short int sign = bin_x >> 63;
     int64_t bin_expo = ((bin_x >> 52) & 2047) - 1023;
+    //Handle fo NaN, where exponent is exactly 1024
+    if (bin_expo == 1024) {GRIMOIRE_ERROR = 702; return 0.0;}
+    if ((bin_x << 1) == 0) {return 0;}
     if (bin_expo < 0) 
     {
         if (sign) {return -1.0;}
